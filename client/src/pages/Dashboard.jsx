@@ -3,15 +3,16 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, 
 import styles from "./Dashboard.module.scss";
 
 export default function Dashboard() {
-  const [reviews, setReviews] = useState([]);
-  const [approved, setApproved] = useState(() => {
-    return {};
-  });
-  const [publicDisplay, setPublicDisplay] = useState(() => {
-    return {};
-  });
+  // ========== STATE MANAGEMENT ==========
   
-  // Filters
+  // Reviews data from API
+  const [reviews, setReviews] = useState([]);
+  
+  // Toggle states for individual reviews
+  const [approved, setApproved] = useState(() => ({}));
+  const [publicDisplay, setPublicDisplay] = useState(() => ({}));
+  
+  // Filter states
   const [search, setSearch] = useState("");
   const [filterProperty, setFilterProperty] = useState("");
   const [filterRating, setFilterRating] = useState("");
@@ -28,30 +29,49 @@ export default function Dashboard() {
   const [selectedReviews, setSelectedReviews] = useState(new Set());
   const [error, setError] = useState(null);
   
-useEffect(() => {
-  const fetchReviews = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/reviews/hostaway");
-      const data = await response.json();
-      setReviews(data.reviews);
-    } catch (err) {
-      console.error("Error fetching reviews:", err);
-      setError("Failed to fetch reviews.");
-    }
-  };
+  // ========== DATA FETCHING ==========
+  
+  /**
+   * Fetch reviews data from API on component mount
+   */
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/reviews/hostaway");
+        const data = await response.json();
+        setReviews(data.reviews);
+      } catch (err) {
+        console.error("Error fetching reviews:", err);
+        setError("Failed to fetch reviews.");
+      }
+    };
 
-  fetchReviews();
-}, []);
+    fetchReviews();
+  }, []);
 
+  // ========== REVIEW MANAGEMENT FUNCTIONS ==========
+  
+  /**
+   * Toggle approval status for a single review
+   * @param {string} id - Review ID
+   */
   const toggleApprove = (id) => {
     setApproved((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  /**
+   * Toggle public display status for a single review
+   * @param {string} id - Review ID
+   */
   const togglePublicDisplay = (id) => {
     setPublicDisplay((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  // Bulk actions
+  // ========== BULK ACTIONS FUNCTIONS ==========
+  
+  /**
+   * Toggle selection of all filtered reviews
+   */
   const toggleSelectAll = () => {
     if (bulkSelectAll) {
       setSelectedReviews(new Set());
@@ -61,6 +81,10 @@ useEffect(() => {
     setBulkSelectAll(!bulkSelectAll);
   };
 
+  /**
+   * Toggle selection of a single review
+   * @param {string} id - Review ID
+   */
   const toggleSelectReview = (id) => {
     const newSelected = new Set(selectedReviews);
     if (newSelected.has(id)) {
@@ -72,6 +96,10 @@ useEffect(() => {
     setBulkSelectAll(newSelected.size === filteredReviews.length);
   };
 
+  /**
+   * Bulk approve/unapprove selected reviews
+   * @param {boolean} approve - True to approve, false to unapprove
+   */
   const bulkApprove = (approve) => {
     const updates = {};
     selectedReviews.forEach(id => {
@@ -80,6 +108,10 @@ useEffect(() => {
     setApproved(prev => ({ ...prev, ...updates }));
   };
 
+  /**
+   * Bulk show/hide selected reviews publicly
+   * @param {boolean} display - True to show, false to hide
+   */
   const bulkPublicDisplay = (display) => {
     const updates = {};
     selectedReviews.forEach(id => {
@@ -88,15 +120,20 @@ useEffect(() => {
     setPublicDisplay(prev => ({ ...prev, ...updates }));
   };
 
-  // Get unique values for filters
+  // ========== DATA PROCESSING ==========
+  
+  // Get unique values for filter dropdowns
   const properties = [...new Set(reviews.map(r => r.property))];
   const categories = [...new Set(reviews.map(r => r.category).filter(Boolean))];
   const channels = [...new Set(reviews.map(r => r.channel).filter(Boolean))];
 
-  // Filter reviews based on all criteria
+  /**
+   * Filter and sort reviews based on current filter criteria
+   * @returns {Array} Filtered and sorted reviews
+   */
   const getFilteredReviews = () => {
     let filtered = reviews.filter(r => {
-      // Search filter
+      // Search filter - matches property, reviewer, or text
       const searchMatch = !search || 
         r.property.toLowerCase().includes(search.toLowerCase()) ||
         r.reviewer.toLowerCase().includes(search.toLowerCase()) ||
@@ -139,7 +176,7 @@ useEffect(() => {
       return searchMatch && propertyMatch && ratingMatch && categoryMatch && channelMatch && dateMatch;
     });
 
-    // Sort reviews
+    // Sort reviews based on selected criteria
     filtered.sort((a, b) => {
       let aVal = a[sortBy];
       let bVal = b[sortBy];
@@ -162,9 +199,13 @@ useEffect(() => {
     return filtered;
   };
 
+  // Get filtered reviews based on current criteria
   const filteredReviews = getFilteredReviews();
 
-  // Analytics data based on ALL reviews (unfiltered)
+  /**
+   * Calculate performance metrics for each property
+   * @returns {Array} Property performance data
+   */
   const getPropertyPerformance = () => {
     const propertyStats = {};
     
@@ -188,7 +229,7 @@ useEffect(() => {
       if (approved[r.id]) stats.approved += 1;
       if (publicDisplay[r.id]) stats.publicDisplay += 1;
       
-      // Track potential issues
+      // Track potential issues (low ratings)
       if (r.ratingOverall < 7) {
         stats.issues.push({
           category: r.category,
@@ -198,6 +239,7 @@ useEffect(() => {
       }
     });
     
+    // Calculate derived metrics
     return Object.values(propertyStats).map(stats => ({
       ...stats,
       avgRating: stats.count > 0 ? (stats.total / stats.count).toFixed(1) : 0,
@@ -207,7 +249,7 @@ useEffect(() => {
     }));
   };
 
-  // Enhanced chart data with more insights
+  // Prepare chart data for rating trends
   const chartData = Object.values(
     filteredReviews.reduce((acc, r) => {
       const month = new Date(r.submittedAt).toLocaleString("default", {
@@ -229,7 +271,7 @@ useEffect(() => {
     total: m.count
   }));
 
-  // Rating distribution based on filtered reviews
+  // Prepare rating distribution data for pie chart
   const ratingDistribution = [
     { rating: "1-2", count: filteredReviews.filter(r => r.ratingOverall >= 1 && r.ratingOverall <= 2).length, fill: "#ef4444" },
     { rating: "3-4", count: filteredReviews.filter(r => r.ratingOverall >= 3 && r.ratingOverall <= 4).length, fill: "#f97316" },
@@ -238,8 +280,14 @@ useEffect(() => {
     { rating: "9-10", count: filteredReviews.filter(r => r.ratingOverall >= 9 && r.ratingOverall <= 10).length, fill: "#16a34a" },
   ];
 
+  // Get property performance data
   const propertyPerformance = getPropertyPerformance();
 
+  // ========== UI HELPER FUNCTIONS ==========
+  
+  /**
+   * Clear all active filters and selections
+   */
   const clearAllFilters = () => {
     setSearch("");
     setFilterProperty("");
@@ -253,9 +301,13 @@ useEffect(() => {
     setBulkSelectAll(false);
   };
 
+  // Check if any filters are active
   const hasActiveFilters = search || filterProperty || filterRating || filterCategory || filterChannel || dateRange !== "all";
 
-  // Get issues and alerts
+  /**
+   * Identify issues and alerts based on review data
+   * @returns {Array} List of issues requiring attention
+   */
   const getIssuesAndAlerts = () => {
     const issues = [];
     
@@ -282,11 +334,13 @@ useEffect(() => {
     return issues;
   };
 
+  // Get current issues
   const issues = getIssuesAndAlerts();
 
+  // ========== RENDER COMPONENT ==========
   return (
     <div className={styles.dashboard}>
-      {/* Sidebar */}
+      {/* Sidebar with filters and search */}
       <div className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
         <div className={styles.sidebarHeader}>
           <div className={styles.sidebarHeaderContent}>
@@ -424,6 +478,7 @@ useEffect(() => {
               </select>
             </div>
 
+            {/* Sort Options */}
             <div className={styles.sortSection}>
               <h3 className={styles.sortTitle}>📊 Sort Options</h3>
               
@@ -457,7 +512,7 @@ useEffect(() => {
         )}
       </div>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <div className={styles.mainContent}>
         <div className={styles.container}>
           {/* Header */}
@@ -495,6 +550,7 @@ useEffect(() => {
             </button>
           </div>
 
+          {/* Content based on selected view mode */}
           <div className={styles.contentWrapper}>
             {viewMode === "overview" && (
               <div className={styles.overviewContent}>

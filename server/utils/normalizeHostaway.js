@@ -20,7 +20,9 @@ const normalizeHostaway = (raw) => {
       (raw.reviewCategory || []).map((c) => [c.category, c.rating])
     ),
     text: raw.publicReview,
-    submittedAt: new Date(raw.submittedAt).toISOString()
+    submittedAt: new Date(raw.submittedAt).toISOString(),
+
+    publicDisplay: Boolean(raw.PublicDisplayStatus)
   };
 };
 

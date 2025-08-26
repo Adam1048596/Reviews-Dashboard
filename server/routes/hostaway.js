@@ -75,4 +75,81 @@ router.get("/hostaway", async (req, res) => {
   });
 });
 
+
+
+//GET /api/reviews/public (ONLY reviews with publicDisplay = true)
+router.get("/public", async (req, res) => {
+  let source;
+  let reviewsData = [];
+
+  try {
+    console.log(`Attempting to fetch live reviews from Hostaway API...`);
+
+    const response = await axios.get(HOSTAWAY_API_URL, {
+      headers: { Authorization: `Bearer ${API_KEY}` },
+      timeout: 10000,
+    });
+
+    if (
+      response.data &&
+      response.data.status === "success" &&
+      Array.isArray(response.data.result)
+    ) {
+      if (response.data.result.length > 0) {
+        reviewsData = response.data.result;
+        source = "Hostaway API";
+      } else {
+        source = "mock (empty live response)";
+        reviewsData = mockReviews.result;
+      }
+    } else {
+      const errorMessage = `Invalid API response structure. Received status: ${response.status}`;
+      console.error(errorMessage, "Full response:", response.data);
+
+      const validationError = new Error(errorMessage);
+      validationError.type = "API_VALIDATION_ERROR";
+      validationError.response = response;
+      throw validationError;
+    }
+  } catch (error) {
+    source = "mock (API error)";
+    reviewsData = mockReviews.result;
+  }
+
+  const normalizedReviews = reviewsData.map(normalizeHostaway);
+  const publicReviews = normalizedReviews.filter((r) => r.publicDisplay);
+
+  console.log(`Sending ${publicReviews.length} public reviews (source: ${source}).`);
+
+  res.json({
+    status: "success",
+    source,
+    count: publicReviews.length,
+    reviews: publicReviews,
+  });
+});
+
+
+// -------------------- NEW PATCH ROUTE --------------------
+router.patch("/hostaway/:id/public", (req, res) => {
+  const { id } = req.params;
+  const { publicDisplay } = req.body;
+
+  // Find review inside mock data
+  const review = mockReviews.result.find(r => r.id == id);
+  if (!review) {
+    return res.status(404).json({ success: false, message: "Review not found" });
+  }
+
+  // Update in memory (not persistent!)
+  review.PublicDisplayStatus = publicDisplay;
+
+  res.json({
+    success: true,
+    message: `Review ${id} visibility updated`,
+    review
+  });
+});
+
+
 module.exports = router;

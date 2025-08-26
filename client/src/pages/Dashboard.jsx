@@ -8,8 +8,7 @@ export default function Dashboard() {
   // Reviews data from API
   const [reviews, setReviews] = useState([]);
   
-  // Toggle states for individual reviews
-  const [approved, setApproved] = useState(() => ({}));
+  // Toggle states for public display
   const [publicDisplay, setPublicDisplay] = useState(() => ({}));
   
   // Filter states
@@ -52,19 +51,25 @@ export default function Dashboard() {
   // ========== REVIEW MANAGEMENT FUNCTIONS ==========
   
   /**
-   * Toggle approval status for a single review
+   * Toggle public display status for a single review and send to server
    * @param {string} id - Review ID
    */
-  const toggleApprove = (id) => {
-    setApproved((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
-  /**
-   * Toggle public display status for a single review
-   * @param {string} id - Review ID
-   */
-  const togglePublicDisplay = (id) => {
-    setPublicDisplay((prev) => ({ ...prev, [id]: !prev[id] }));
+  const togglePublicDisplay = async (id) => {
+    const newDisplayStatus = !publicDisplay[id];
+    setPublicDisplay((prev) => ({ ...prev, [id]: newDisplayStatus }));
+    
+    try {
+      await fetch(`http://localhost:5000/api/reviews/hostaway/${id}/public`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ publicDisplay: newDisplayStatus }),
+      });
+    } catch (err) {
+      console.error("Error updating public display status:", err);
+      setError("Failed to update public display status.");
+    }
   };
 
   // ========== BULK ACTIONS FUNCTIONS ==========
@@ -97,27 +102,32 @@ export default function Dashboard() {
   };
 
   /**
-   * Bulk approve/unapprove selected reviews
-   * @param {boolean} approve - True to approve, false to unapprove
-   */
-  const bulkApprove = (approve) => {
-    const updates = {};
-    selectedReviews.forEach(id => {
-      updates[id] = approve;
-    });
-    setApproved(prev => ({ ...prev, ...updates }));
-  };
-
-  /**
-   * Bulk show/hide selected reviews publicly
+   * Bulk show/hide selected reviews publicly and send to server
    * @param {boolean} display - True to show, false to hide
    */
-  const bulkPublicDisplay = (display) => {
+  const bulkPublicDisplay = async (display) => {
     const updates = {};
     selectedReviews.forEach(id => {
       updates[id] = display;
     });
     setPublicDisplay(prev => ({ ...prev, ...updates }));
+
+    try {
+      await Promise.all(
+        Array.from(selectedReviews).map(id =>
+          fetch(`http://localhost:5000/api/reviews/hostaway/${id}/public`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ publicDisplay: display }),
+          })
+        )
+      );
+    } catch (err) {
+      console.error("Error updating bulk public display status:", err);
+      setError("Failed to update bulk public display status.");
+    }
   };
 
   // ========== DATA PROCESSING ==========
@@ -216,7 +226,6 @@ export default function Dashboard() {
           total: 0,
           count: 0,
           ratings: [],
-          approved: 0,
           publicDisplay: 0,
           issues: []
         };
@@ -226,7 +235,6 @@ export default function Dashboard() {
       stats.total += r.ratingOverall || 0;
       stats.count += 1;
       stats.ratings.push(r.ratingOverall || 0);
-      if (approved[r.id]) stats.approved += 1;
       if (publicDisplay[r.id]) stats.publicDisplay += 1;
       
       // Track potential issues (low ratings)
@@ -243,7 +251,6 @@ export default function Dashboard() {
     return Object.values(propertyStats).map(stats => ({
       ...stats,
       avgRating: stats.count > 0 ? (stats.total / stats.count).toFixed(1) : 0,
-      approvalRate: ((stats.approved / stats.count) * 100).toFixed(1),
       publicRate: ((stats.publicDisplay / stats.count) * 100).toFixed(1),
       issueCount: stats.issues.length
     }));
@@ -590,23 +597,6 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <div className={`${styles.kpiCard} ${styles.kpiCardPurple}`}>
-                    <div className={styles.kpiCardContent}>
-                      <div className={styles.kpiIcon}>
-                        <span>✅</span>
-                      </div>
-                      <div className={styles.kpiDetails}>
-                        <p className={styles.kpiLabel}>Approved</p>
-                        <p className={styles.kpiValue}>
-                          {filteredReviews.filter(r => approved[r.id]).length}
-                        </p>
-                        <p className={styles.kpiSubtext}>
-                          {filteredReviews.length > 0 ? Math.round((filteredReviews.filter(r => approved[r.id]).length / filteredReviews.length) * 100) : 0}% approval rate
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
                   <div className={`${styles.kpiCard} ${styles.kpiCardOrange}`}>
                     <div className={styles.kpiCardContent}>
                       <div className={styles.kpiIcon}>
@@ -701,7 +691,6 @@ export default function Dashboard() {
                           <th className={styles.tableHeadCell}>Reviews</th>
                           <th className={styles.tableHeadCell}>Avg Rating</th>
                           <th className={styles.tableHeadCell}>Issues</th>
-                          <th className={styles.tableHeadCell}>Approval Rate</th>
                           <th className={styles.tableHeadCell}>Public Display</th>
                           <th className={styles.tableHeadCell}>Status</th>
                         </tr>
@@ -730,15 +719,6 @@ export default function Dashboard() {
                               ) : (
                                 <span className={styles.noIssues}>None</span>
                               )}
-                            </td>
-                            <td className={styles.tableCell}>
-                              <span className={`${styles.rateBadge} ${
-                                parseFloat(prop.approvalRate) >= 80 ? styles.rateHigh :
-                                parseFloat(prop.approvalRate) >= 60 ? styles.rateMedium :
-                                styles.rateLow
-                              }`}>
-                                {prop.approvalRate}%
-                              </span>
                             </td>
                             <td className={styles.tableCell}>
                               <span className={`${styles.rateBadge} ${
@@ -821,18 +801,6 @@ export default function Dashboard() {
                         <p className={styles.bulkActionsSubtitle}>Choose bulk actions to apply</p>
                       </div>
                       <div className={styles.bulkActionButtons}>
-                        <button
-                          onClick={() => bulkApprove(true)}
-                          className={`${styles.button} ${styles.buttonSuccess}`}
-                        >
-                          Approve All
-                        </button>
-                        <button
-                          onClick={() => bulkApprove(false)}
-                          className={`${styles.button} ${styles.buttonDanger}`}
-                        >
-                          Unapprove All
-                        </button>
                         <button
                           onClick={() => bulkPublicDisplay(true)}
                           className={`${styles.button} ${styles.buttonPrimary}`}
@@ -930,16 +898,6 @@ export default function Dashboard() {
                         </div>
                         
                         <div className={styles.reviewActions}>
-                          <label className={styles.actionLabel}>
-                            <input
-                              type="checkbox"
-                              checked={approved[review.id] || false}
-                              onChange={() => toggleApprove(review.id)}
-                              className={styles.checkbox}
-                            />
-                            <span className={styles.actionText}>Approved</span>
-                          </label>
-                          
                           <label className={styles.actionLabel}>
                             <input
                               type="checkbox"

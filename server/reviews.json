@@ -1,0 +1,771 @@
+{
+  "result": [
+    {
+      "id": 5821,
+      "listingName": "Modern Loft in City Center",
+      "guestName": "Sophie Martin",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 3 },
+        { "category": "communication", "rating": 9 },
+        { "category": "respect_house_rules", "rating": 10 },
+        { "category": "check_in", "rating": 8 }
+      ],
+      "publicReview": "Sophie and her friends were amazing guests, super respectful and clean!",
+      "submittedAt": "2022-02-15 10:45:00"
+    },
+    {
+      "id": 4093,
+      "listingName": "Seaside Villa Paradise",
+      "guestName": "Marcus Johnson",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "check_in", "rating": 9 },
+        { "category": "accuracy", "rating": 10 },
+        { "category": "location", "rating": 10 },
+        { "category": "value", "rating": 8 }
+      ],
+      "publicReview": "The view was absolutely breathtaking! The villa was even better than the photos. Will definitely return.",
+      "submittedAt": "2022-03-22 14:30:00"
+    },
+    {
+      "id": 7165,
+      "listingName": "Cozy Mountain Cabin",
+      "guestName": "Alex Turner",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 3 },
+        { "category": "accuracy", "rating": 5 },
+        { "category": "value", "rating": 4 }
+      ],
+      "publicReview": "The cabin was not as clean as expected. The description mentioned a hot tub, but it was out of service. Pretty disappointed given the price.",
+      "submittedAt": "2022-01-10 16:20:00"
+    },
+    {
+      "id": 9327,
+      "listingName": "Urban Chic Apartment",
+      "guestName": "Emma Davis",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "location", "rating": 10 },
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "communication", "rating": 10 },
+        { "category": "check_in", "rating": 10 }
+      ],
+      "publicReview": "Perfect stay! The location was ideal, and the apartment was spotless. The host was very responsive.",
+      "submittedAt": "2022-04-05 09:15:00"
+    },
+    {
+      "id": 1548,
+      "listingName": "Lakeside Retreat",
+      "guestName": "David Wilson",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 2 },
+        { "category": "respect_house_rules", "rating": 4 },
+        { "category": "communication", "rating": 6 }
+      ],
+      "publicReview": "Guests left the place quite messy and were loud past quiet hours. Would not host again.",
+      "submittedAt": "2022-05-30 22:00:00"
+    },
+    {
+      "id": 8412,
+      "listingName": "Downtown Luxury Loft",
+      "guestName": "Jessica Brown",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "check_in", "rating": 10 },
+        { "category": "location", "rating": 10 },
+        { "category": "accuracy", "rating": 10 },
+        { "category": "value", "rating": 9 }
+      ],
+      "publicReview": "An incredible experience from start to finish. The loft is stunning and the host thought of every detail.",
+      "submittedAt": "2022-06-12 11:45:00"
+    },
+    {
+      "id": 2793,
+      "listingName": "The Garden Cottage",
+      "guestName": "Ryan Lee",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 8,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 9 },
+        { "category": "accuracy", "rating": 7 },
+        { "category": "value", "rating": 8 }
+      ],
+      "publicReview": "Charming cottage with a beautiful garden. The space was a bit smaller than it appeared in photos but was very comfortable.",
+      "submittedAt": "2022-07-18 13:50:00"
+    },
+    {
+      "id": 6651,
+      "listingName": "Skyline Penthouse",
+      "guestName": "Olivia Garcia",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 3,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 2 },
+        { "category": "accuracy", "rating": 4 },
+        { "category": "communication", "rating": 3 },
+        { "category": "check_in", "rating": 5 }
+      ],
+      "publicReview": "The penthouse was dirty upon arrival. The wifi didn't work, and the host was very difficult to get ahold of. Would not recommend.",
+      "submittedAt": "2022-08-01 18:40:00"
+    },
+    {
+      "id": 4987,
+      "listingName": "Historic Townhouse",
+      "guestName": "Thomas Moore",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 9,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 9 },
+        { "category": "location", "rating": 10 },
+        { "category": "unique", "rating": 10 },
+        { "category": "value", "rating": 8 }
+      ],
+      "publicReview": "Filled with character and history! We loved our stay and the location couldn't be beat.",
+      "submittedAt": "2022-08-25 12:10:00"
+    },
+    {
+      "id": 3274,
+      "listingName": "Beach Bungalow Bliss",
+      "guestName": "Maria Rodriguez",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 5 },
+        { "category": "location", "rating": 10 },
+        { "category": "value", "rating": 6 },
+        { "category": "accuracy", "rating": 5 }
+      ],
+      "publicReview": "The location is perfect, right on the beach. However, the bungalow itself is quite dated and could use a deep clean.",
+      "submittedAt": "2022-09-14 15:30:00"
+    },
+    {
+      "id": 5839,
+      "listingName": "Modern Loft in City Center",
+      "guestName": "Daniel Kim",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "communication", "rating": 10 },
+        { "category": "check_in", "rating": 10 },
+        { "category": "location", "rating": 10 }
+      ],
+      "publicReview": "Flawless stay. The loft is modern, clean, and the host provided excellent recommendations for the area.",
+      "submittedAt": "2022-10-05 08:20:00"
+    },
+    {
+      "id": 9106,
+      "listingName": "Seaside Villa Paradise",
+      "guestName": "Sarah Jones",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "respect_house_rules", "rating": 10 },
+        { "category": "communication", "rating": 9 }
+      ],
+      "publicReview": "Sarah was a perfect guest. Left the villa immaculate and was a pleasure to communicate with. Welcome back anytime!",
+      "submittedAt": "2022-10-28 19:05:00"
+    },
+    {
+      "id": 7421,
+      "listingName": "Cozy Mountain Cabin",
+      "guestName": "Kevin Miller",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 2,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 1 },
+        { "category": "accuracy", "rating": 2 },
+        { "category": "safety", "rating": 3 },
+        { "category": "value", "rating": 1 }
+      ],
+      "publicReview": "The cabin was filthy and smelled of mold. The locks were also very flimsy. We felt unsafe and left early.",
+      "submittedAt": "2022-11-11 20:55:00"
+    },
+    {
+      "id": 1964,
+      "listingName": "Urban Chic Apartment",
+      "guestName": "Lisa Taylor",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "location", "rating": 10 },
+        { "category": "value", "rating": 9 },
+        { "category": "check_in", "rating": 10 }
+      ],
+      "publicReview": "This is my go-to place whenever I'm in the city. Always a perfect experience!",
+      "submittedAt": "2022-11-30 10:00:00"
+    },
+    {
+      "id": 5582,
+      "listingName": "Lakeside Retreat",
+      "guestName": "Robert Clark",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 5,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 6 },
+        { "category": "communication", "rating": 4 },
+        { "category": "check_in", "rating": 7 }
+      ],
+      "publicReview": "The lake view was nice, but the check-in process was confusing and the host was slow to respond to messages.",
+      "submittedAt": "2022-12-22 17:45:00"
+    },
+    {
+      "id": 8235,
+      "listingName": "The Artist's Studio",
+      "guestName": "Chloe Price",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "unique", "rating": 10 },
+        { "category": "communication", "rating": 10 },
+        { "category": "inspiration", "rating": 10 }
+      ],
+      "publicReview": "Incredibly inspiring space! Filled with natural light and creative energy. The host was wonderful.",
+      "submittedAt": "2023-01-05 12:20:00"
+    },
+    {
+      "id": 6719,
+      "listingName": "Downtown Luxury Loft",
+      "guestName": "Michael Zhang",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 4 },
+        { "category": "respect_house_rules", "rating": 5 },
+        { "category": "communication", "rating": 6 }
+      ],
+      "publicReview": "Guest broke a vase and did not report it. Otherwise, stay was okay.",
+      "submittedAt": "2023-01-18 21:10:00"
+    },
+    {
+      "id": 4390,
+      "listingName": "Sunny Family Villa",
+      "guestName": "The Patel Family",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 9,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 9 },
+        { "category": "family_friendly", "rating": 10 },
+        { "category": "value", "rating": 8 },
+        { "category": "check_in", "rating": 9 }
+      ],
+      "publicReview": "Perfect for our family vacation! The kids loved the pool and the kitchen was well-stocked.",
+      "submittedAt": "2023-02-02 14:55:00"
+    },
+    {
+      "id": 3852,
+      "listingName": "The Garden Cottage",
+      "guestName": "Benjamin Carter",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 3,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 2 },
+        { "category": "accuracy", "rating": 3 },
+        { "category": "value", "rating": 4 }
+      ],
+      "publicReview": "The garden was overgrown and the cottage was damp. Found several insects inside. Not worth the price.",
+      "submittedAt": "2023-02-20 19:30:00"
+    },
+    {
+      "id": 7584,
+      "listingName": "Skyline Penthouse",
+      "guestName": "Amanda Lewis",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "views", "rating": 10 },
+        { "category": "location", "rating": 10 },
+        { "category": "accuracy", "rating": 10 }
+      ],
+      "publicReview": "Absolutely spectacular! The photos don't do it justice. The sunset views from the terrace are unforgettable.",
+      "submittedAt": "2023-03-10 11:05:00"
+    },
+    {
+      "id": 6291,
+      "listingName": "Historic Townhouse",
+      "guestName": "William Davis",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 8,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 8 },
+        { "category": "unique", "rating": 9 },
+        { "category": "location", "rating": 10 }
+      ],
+      "publicReview": "A wonderful stay in a beautiful building. The stairs are quite steep, just something to be aware of.",
+      "submittedAt": "2023-03-25 16:40:00"
+    },
+    {
+      "id": 9723,
+      "listingName": "Beach Bungalow Bliss",
+      "guestName": "Natalie Green",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "respect_house_rules", "rating": 10 },
+        { "category": "communication", "rating": 10 }
+      ],
+      "publicReview": "Natalie was a fantastic guest! Left the bungalow spotless and was very respectful. Highly recommend.",
+      "submittedAt": "2023-04-07 13:15:00"
+    },
+    {
+      "id": 5068,
+      "listingName": "The Rustic Farmhouse",
+      "guestName": "Ethan Walker",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 7,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 6 },
+        { "category": "unique", "rating": 8 },
+        { "category": "accuracy", "rating": 7 },
+        { "category": "peacefulness", "rating": 9 }
+      ],
+      "publicReview": "A charming and quiet getaway. The farmhouse is rustic, as advertised. Could have been a bit cleaner.",
+      "submittedAt": "2023-04-22 10:50:00"
+    },
+    {
+      "id": 8147,
+      "listingName": "Seaside Villa Paradise",
+      "guestName": "Sophia Brown",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 2,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 3 },
+        { "category": "maintenance", "rating": 2 },
+        { "category": "communication", "rating": 1 },
+        { "category": "value", "rating": 1 }
+      ],
+      "publicReview": "The pool was dirty and broken. The air conditioning didn't work. The host was unreachable. A complete disaster.",
+      "submittedAt": "2023-05-15 18:25:00"
+    },
+    {
+      "id": 3479,
+      "listingName": "City Center Modern Loft",
+      "guestName": "James Wilson",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "location", "rating": 10 },
+        { "category": "check_in", "rating": 10 },
+        { "category": "communication", "rating": 10 }
+      ],
+      "publicReview": "The best Airbnb I've ever stayed in. Perfect location, incredibly stylish, and everything was seamless.",
+      "submittedAt": "2023-05-28 09:40:00"
+    },
+    {
+      "id": 1825,
+      "listingName": "Cozy Mountain Cabin",
+      "guestName": "Ava Martinez",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 1,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 1 },
+        { "category": "accuracy", "rating": 2 },
+        { "category": "safety", "rating": 2 },
+        { "category": "value", "rating": 1 }
+      ],
+      "publicReview": "We found mouse droppings in the kitchen. The heat wasn't working properly. We had to leave in the middle of the night. Terrible.",
+      "submittedAt": "2023-06-11 23:15:00"
+    },
+    {
+      "id": 4912,
+      "listingName": "Lakeside Retreat",
+      "guestName": "Lucas Anderson",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 9,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 9 },
+        { "category": "peacefulness", "rating": 10 },
+        { "category": "location", "rating": 9 },
+        { "category": "value", "rating": 8 }
+      ],
+      "publicReview": "The perfect place to disconnect and relax. We spent our days fishing and our evenings by the fire pit. Magical.",
+      "submittedAt": "2023-06-30 15:20:00"
+    },
+    {
+      "id": 7634,
+      "listingName": "The Treehouse Escape",
+      "guestName": "Mia Robinson",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "unique", "rating": 10 },
+        { "category": "communication", "rating": 10 },
+        { "category": "adventure", "rating": 10 }
+      ],
+      "publicReview": "A childhood dream come true! The treehouse is even more amazing in person. So much attention to detail.",
+      "submittedAt": "2023-07-12 08:05:00"
+    },
+    {
+      "id": 2389,
+      "listingName": "Urban Chic Apartment",
+      "guestName": "Henry Taylor",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 3 },
+        { "category": "respect_house_rules", "rating": 5 },
+        { "category": "communication", "rating": 4 }
+      ],
+      "publicReview": "Guest had an unauthorized party. Neighbors complained about noise. Left significant mess.",
+      "submittedAt": "2023-07-29 20:50:00"
+    },
+    {
+      "id": 8751,
+      "listingName": "The Artist's Studio",
+      "guestName": "Zoe Clark",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "inspiration", "rating": 10 },
+        { "category": "value", "rating": 10 },
+        { "category": "light", "rating": 10 }
+      ],
+      "publicReview": "I wrote my best music here! The acoustics and light were perfect. I will definitely be back.",
+      "submittedAt": "2023-08-10 17:35:00"
+    },
+    {
+      "id": 6124,
+      "listingName": "Ski Chalet Snowhaven",
+      "guestName": "Noah Thompson",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "location", "rating": 10 },
+        { "category": "amenities", "rating": 9 },
+        { "category": "coziness", "rating": 10 }
+      ],
+      "publicReview": "The perfect spot for our ski trip. The chalet was warm, cozy, and had everything we needed. Stunning mountain views!",
+      "submittedAt": "2023-08-28 11:20:00"
+    },
+    {
+      "id": 4297,
+      "listingName": "Downtown Luxury Loft",
+      "guestName": "Ella Harris",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 4,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 5 },
+        { "category": "accuracy", "rating": 3 },
+        { "category": "noise_level", "rating": 2 }
+      ],
+      "publicReview": "The loft was nice but the street noise was unbearable at night. The listing didn't mention how loud it would be.",
+      "submittedAt": "2023-09-14 14:50:00"
+    },
+    {
+      "id": 7890,
+      "listingName": "Desert Oasis Retreat",
+      "guestName": "Carlos Gomez",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "unique", "rating": 10 },
+        { "category": "views", "rating": 10 },
+        { "category": "privacy", "rating": 10 }
+      ],
+      "publicReview": "An absolutely magical experience. Waking up to the desert sunrise was unforgettable. Total privacy and peace.",
+      "submittedAt": "2023-09-30 07:15:00"
+    },
+    {
+      "id": 1563,
+      "listingName": "The Garden Cottage",
+      "guestName": "Hannah White",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 9 },
+        { "category": "respect_house_rules", "rating": 10 },
+        { "category": "communication", "rating": 8 }
+      ],
+      "publicReview": "Hannah was a delightful guest. Took great care of the cottage and the garden. Would love to host her again.",
+      "submittedAt": "2023-10-12 16:40:00"
+    },
+    {
+      "id": 8456,
+      "listingName": "Skyline Penthouse",
+      "guestName": "George King",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 9,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 9 },
+        { "category": "views", "rating": 10 },
+        { "category": "luxury", "rating": 10 },
+        { "category": "check_in", "rating": 8 }
+      ],
+      "publicReview": "A truly luxurious experience. The penthouse has been beautifully updated since our last stay. The views are worth every penny.",
+      "submittedAt": "2023-10-25 12:30:00"
+    },
+    {
+      "id": 3782,
+      "listingName": "Beach Bungalow Bliss",
+      "guestName": "Lily Adams",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 3,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 2 },
+        { "category": "maintenance", "rating": 3 },
+        { "category": "safety", "rating": 4 }
+      ],
+      "publicReview": "The door lock was broken and we didn't feel safe. The place had not been cleaned properly from the previous guests.",
+      "submittedAt": "2023-11-08 19:05:00"
+    },
+    {
+      "id": 9517,
+      "listingName": "Historic Townhouse",
+      "guestName": "Peter Scott",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "unique", "rating": 10 },
+        { "category": "history", "rating": 10 },
+        { "category": "location", "rating": 10 }
+      ],
+      "publicReview": "We felt like we were living in a museum! So much history and charm. Impeccably clean and perfectly located.",
+      "submittedAt": "2023-11-20 09:55:00"
+    },
+    {
+      "id": 2948,
+      "listingName": "Cozy Mountain Cabin",
+      "guestName": "Riley Cooper",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 2 },
+        { "category": "respect_house_rules", "rating": 3 },
+        { "category": "communication", "rating": 5 }
+      ],
+      "publicReview": "Guents left a lot of trash outside, which attracted animals. They also smoked inside, against the house rules.",
+      "submittedAt": "2023-12-03 22:15:00"
+    },
+    {
+      "id": 5183,
+      "listingName": "Lakeside Retreat",
+      "guestName": "Victoria Young",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "peacefulness", "rating": 10 },
+        { "category": "fishing", "rating": 10 },
+        { "category": "stargazing", "rating": 10 }
+      ],
+      "publicReview": "Pure bliss. We caught fish for dinner and spent the nights by the fire looking at the stars. The perfect digital detox.",
+      "submittedAt": "2023-12-15 15:10:00"
+    },
+    {
+      "id": 6824,
+      "listingName": "Modern Loft in City Center",
+      "guestName": "Aaron Lewis",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 2,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 3 },
+        { "category": "accuracy", "rating": 2 },
+        { "category": "noise_level", "rating": 1 }
+      ],
+      "publicReview": "The loft was next to a construction site that started at 6 AM. The listing made no mention of this. Impossible to sleep.",
+      "submittedAt": "2023-12-28 10:45:00"
+    },
+    {
+      "id": 1397,
+      "listingName": "Seaside Villa Paradise",
+      "guestName": "Nina Patel",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "views", "rating": 10 },
+        { "category": "pool", "rating": 10 },
+        { "category": "sunset", "rating": 10 }
+      ],
+      "publicReview": "We got engaged here! The villa provided the most perfect, romantic backdrop. Everything was flawless.",
+      "submittedAt": "2024-01-10 18:20:00"
+    },
+    {
+      "id": 8765,
+      "listingName": "Urban Chic Apartment",
+      "guestName": "Dylan Carter",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "style", "rating": 10 },
+        { "category": "tech", "rating": 10 },
+        { "category": "check_in", "rating": 10 }
+      ],
+      "publicReview": "This place is so cool! Smart home everything, amazing record collection, and the comfiest bed ever. Will be back for sure.",
+      "submittedAt": "2024-01-24 13:05:00"
+    },
+    {
+      "id": 4621,
+      "listingName": "The Rustic Farmhouse",
+      "guestName": "Grace Miller",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 5,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 4 },
+        { "category": "amenities", "rating": 3 },
+        { "category": "warmth", "rating": 6 }
+      ],
+      "publicReview": "The farmhouse was very cold and the heating was inadequate. The kitchen was also not well equipped for cooking.",
+      "submittedAt": "2024-02-07 20:30:00"
+    },
+    {
+      "id": 7239,
+      "listingName": "The Treehouse Escape",
+      "guestName": "Owen Roberts",
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "respect_house_rules", "rating": 10 },
+        { "category": "communication", "rating": 10 }
+      ],
+      "publicReview": "Owen and his family were wonderful guests. They loved the treehouse and left it in perfect condition. Ideal guests!",
+      "submittedAt": "2024-02-20 11:55:00"
+    },
+    {
+      "id": 5812,
+      "listingName": "Ski Chalet Snowhaven",
+      "guestName": "Charlotte Lee",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 1,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 2 },
+        { "category": "maintenance", "rating": 1 },
+        { "category": "safety", "rating": 1 }
+      ],
+      "publicReview": "The pipes froze and burst, flooding the chalet. We had to be moved to a hotel. The host was apologetic but it ruined our trip.",
+      "submittedAt": "2024-03-05 17:40:00"
+    },
+    {
+      "id": 3987,
+      "listingName": "Desert Oasis Retreat",
+      "guestName": "Jack Wilson",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "unique", "rating": 10 },
+        { "category": "stargazing", "rating": 10 },
+        { "category": "solitude", "rating": 10 }
+      ],
+      "publicReview": "If you need to get away from everything, this is the place. The silence and the night sky were profound. Perfect.",
+      "submittedAt": "2024-03-18 08:10:00"
+    },
+    {
+      "id": 6354,
+      "listingName": "City Center Modern Loft",
+      "guestName": "Isabella Garcia",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "location", "rating": 10 },
+        { "category": "wifi", "rating": 10 },
+        { "category": "work_space", "rating": 10 }
+      ],
+      "publicReview": "I stayed here for a month while relocating for work. It was the perfect home base. Fast wifi and a great desk setup.",
+      "submittedAt": "2024-04-01 14:25:00"
+    },
+    {
+      "id": 2691,
+      "listingName": "Sunny Family Villa",
+      "guestName": "David Thompson",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 8,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 8 },
+        { "category": "family_friendly", "rating": 9 },
+        { "category": "pool_safety", "rating": 7 }
+      ],
+      "publicReview": "Great villa for kids! The pool was fantastic, though the gate wasn't as secure as we'd like for toddlers. Otherwise, wonderful.",
+      "submittedAt": "2024-04-14 12:00:00"
+    },
+    {
+      "id": 9148,
+      "listingName": "The Artist's Studio",
+      "guestName": "Samuel Kim",
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "light", "rating": 10 },
+        { "category": "privacy", "rating": 10 },
+        { "category": "inspiration", "rating": 10 }
+      ],
+      "publicReview": "I finished my novel here! The light was perfect for painting and the space was so quiet. A truly productive retreat.",
+      "submittedAt": "2024-04-27 16:45:00"
+    }
+  ]
+}

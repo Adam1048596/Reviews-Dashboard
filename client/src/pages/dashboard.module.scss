@@ -1,31 +1,90 @@
-// Dashboard.module.scss
+// Import Sass color module
+@use 'sass:color';
 
-// Color palette based on the image
-$primary-blue: #1e40af;
-$secondary-blue: #3b82f6;
-$light-blue: #dbeafe;
-$dark-gray: #374151;
-$medium-gray: #6b7280;
-$light-gray: #f3f4f6;
+// Variables
+$primary-color: #3b82f6;
+$primary-light: #dbeafe;
+$primary-dark: #1e40af;
+$secondary-color: #6b7280;
+$success-color: #10b981;
+$success-light: #d1fae5;
+$danger-color: #ef4444;
+$danger-light: #fee2e2;
+$warning-color: #f59e0b;
+$warning-light: #fef3c7;
+$info-color: #8b5cf6;
+$info-light: #ede9fe;
+
+$text-primary: #111827;
+$text-secondary: #6b7280;
+$text-muted: #9ca3af;
+$background: #f9fafb;
 $white: #ffffff;
-$green: #10b981;
-$red: #ef4444;
 $border-color: #e5e7eb;
+$border-light: #f3f4f6;
+$shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+$border-radius: 8px;
+$border-radius-lg: 12px;
+$transition: all 0.3s ease;
 
 // Mixins
-@mixin card-style {
-  background: $white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-}
-
 @mixin flex-center {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-// Dashboard styles
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+}
+
+@mixin button-base {
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: $transition;
+  cursor: pointer;
+  border: none;
+  
+  &:focus {
+    outline: none;
+    ring: 2px;
+    ring-offset: 2px;
+  }
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-size: 0.875rem;
+  transition: $transition;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+}
+
 .dashboard {
   display: flex;
   min-height: 100vh;
@@ -33,194 +92,194 @@ $border-color: #e5e7eb;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
 }
 
-// Sidebar styles
+// Sidebar
 .sidebar {
-  width: 280px;
+  flex-shrink: 0;
   background: $white;
   border-right: 1px solid $border-color;
-  transition: all 0.3s ease;
-  overflow-y: auto;
+  transition: $transition;
+  
+  &.sidebarOpen {
+    width: 25rem;
+  }
   
   &.sidebarClosed {
-    width: 60px;
-    
-    .sidebarTitle {
-      opacity: 0;
-      visibility: hidden;
-    }
-    
-    .filterGroup, .sortSection, .activeFiltersCard, .issuesCard {
-      display: none;
-    }
+    width: 4rem;
   }
 }
 
 .sidebarHeader {
-  padding: 1rem;
+  padding: 1.5rem;
   border-bottom: 1px solid $border-color;
 }
 
 .sidebarHeaderContent {
-  @include flex-center;
-  justify-content: space-between;
+  @include flex-between;
 }
 
 .sidebarTitle {
-  font-size: 1.1rem;
   font-weight: 600;
-  color: $dark-gray;
+  color: $text-primary;
   margin: 0;
-  transition: opacity 0.2s ease;
-}
-
-.toggleButton {
-  background: $light-gray;
-  border: none;
-  border-radius: 6px;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  @include flex-center;
-  justify-content: center;
   
-  &:hover {
-    background: darken($light-gray, 5%);
+  &.hidden {
+    display: none;
   }
 }
 
+
+
+
+
 .sidebarContent {
+  padding: 1.5rem;
+  height: calc(100vh - 5rem);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+// Filter cards
+.activeFiltersCard {
+  background: $primary-light;
+  border: 1px solid color.adjust($primary-color, $lightness: 30%);
+  border-radius: $border-radius-lg;
   padding: 1rem;
 }
 
-.activeFiltersCard {
-  @include card-style;
-  margin-bottom: 1rem;
-  background: $light-blue;
-  border-left: 4px solid $primary-blue;
-}
-
 .activeFiltersHeader {
-  @include flex-center;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+  @include flex-between;
 }
 
 .activeFiltersLabel {
-  font-weight: 600;
-  color: $primary-blue;
+  font-size: 0.875rem;
+  color: color.adjust($primary-color, $lightness: -20%);
+  font-weight: 500;
 }
 
 .clearFiltersButton {
+  font-size: 0.75rem;
+  color: $primary-color;
   background: none;
   border: none;
-  color: $primary-blue;
-  font-size: 0.8rem;
+  text-decoration: underline;
   cursor: pointer;
-  
+
   &:hover {
-    text-decoration: underline;
+    color: $primary-dark;
   }
 }
 
 .activeFiltersCount {
-  margin: 0;
-  font-size: 0.9rem;
-  color: $medium-gray;
+  font-size: 0.75rem;
+  color: $primary-color;
+  margin: 0.5rem 0 0 0;
 }
 
 .issuesCard {
-  @include card-style;
-  margin-bottom: 1rem;
-  border-left: 4px solid $red;
+  background: $warning-light;
+  border: 1px solid color.adjust($warning-color, $lightness: 30%);
+  border-radius: $border-radius-lg;
+  padding: 1rem;
 }
 
 .issuesTitle {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: $dark-gray;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: color.adjust($warning-color, $lightness: -20%);
   margin: 0 0 0.5rem 0;
 }
 
 .issuesList {
-  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .issueItem {
-  margin: 0.5rem 0;
-  line-height: 1.4;
+  font-size: 0.75rem;
+  color: color.adjust($warning-color, $lightness: -30%);
+  margin: 0;
 }
 
 .moreIssues {
-  margin: 0.5rem 0 0 0;
+  font-size: 0.75rem;
+  color: color.adjust($warning-color, $lightness: -10%);
   font-style: italic;
-  color: $medium-gray;
+  margin: 0;
 }
 
+// Filter groups
 .filterGroup {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .filterLabel {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: $dark-gray;
-  margin-bottom: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text-secondary;
 }
 
-.input, .select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid $border-color;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  
-  &:focus {
-    outline: none;
-    border-color: $secondary-blue;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-  }
+.input {
+  @include input-base;
+}
+
+.select {
+  @include input-base;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
 }
 
 .sortSection {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
   border-top: 1px solid $border-color;
+  padding-top: 1rem;
 }
 
 .sortTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  color: $dark-gray;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text-secondary;
   margin: 0 0 1rem 0;
 }
 
-// Main content styles
+// Main content
 .mainContent {
   flex: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .container {
-  padding: 1.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 2rem;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
+// Header
 .header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .headerTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: $dark-gray;
-  margin: 0 0 0.25rem 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: $text-primary;
+  margin: 0 0 0.5rem 0;
 }
 
 .headerSubtitle {
-  color: $medium-gray;
-  margin: 0 0 1rem 0;
+  color: $text-secondary;
+  margin: 0;
 }
 
 .headerBadge {
@@ -228,81 +287,118 @@ $border-color: #e5e7eb;
 }
 
 .filterBadge {
-  display: inline-block;
-  background: $light-blue;
-  color: $primary-blue;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
   font-weight: 500;
+  background: $primary-light;
+  color: color.adjust($primary-color, $lightness: -20%);
 }
 
+// Navigation tabs
 .tabsContainer {
   display: flex;
-  border-bottom: 1px solid $border-color;
+  gap: 0.25rem;
   margin-bottom: 1.5rem;
+  background: $border-light;
+  padding: 0.25rem;
+  border-radius: $border-radius-lg;
+  width: fit-content;
 }
 
 .tab {
-  background: none;
-  border: none;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
-  color: $medium-gray;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  
+  @include button-base;
+  background: transparent;
+  color: $text-secondary;
+
   &:hover {
-    color: $primary-blue;
+    color: $text-primary;
   }
   
   &.tabActive {
-    color: $primary-blue;
-    border-bottom-color: $primary-blue;
-    font-weight: 500;
+    background: $white;
+    box-shadow: $shadow;
+    color: $primary-color;
+    font-weight: 600;
   }
 }
 
-// Overview content styles
-.overviewContent {
-  // Styles for overview tab
+.contentWrapper {
+  flex: 1;
+  overflow-y: auto;
 }
 
+// Overview content
+.overviewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// KPI Cards
 .kpiGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .kpiCard {
-  @include card-style;
-  
+  @include card;
+  padding: 1.5rem;
+
   &.kpiCardBlue {
-    border-top: 4px solid $primary-blue;
+    background: linear-gradient(135deg, $primary-light 0%, color.adjust($primary-light, $lightness: 5%) 100%);
+    border-color: color.adjust($primary-color, $lightness: 30%);
   }
-  
+
   &.kpiCardGreen {
-    border-top: 4px solid $green;
+    background: linear-gradient(135deg, $success-light 0%, color.adjust($success-light, $lightness: 5%) 100%);
+    border-color: color.adjust($success-color, $lightness: 30%);
   }
-  
+
   &.kpiCardPurple {
-    border-top: 4px solid #8b5cf6;
+    background: linear-gradient(135deg, $info-light 0%, color.adjust($info-light, $lightness: 5%) 100%);
+    border-color: color.adjust($info-color, $lightness: 30%);
   }
-  
+
   &.kpiCardOrange {
-    border-top: 4px solid #f97316;
+    background: linear-gradient(135deg, color.adjust($warning-light, $lightness: 10%) 0%, color.adjust($warning-light, $lightness: 15%) 100%);
+    border-color: color.adjust($warning-color, $lightness: 30%);
   }
 }
 
 .kpiCardContent {
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .kpiIcon {
-  font-size: 2rem;
-  margin-right: 1rem;
-  opacity: 0.8;
+  padding: 0.75rem;
+  border-radius: $border-radius-lg;
+
+  .kpiCardBlue & {
+    background: $primary-color;
+  }
+
+  .kpiCardGreen & {
+    background: $success-color;
+  }
+
+  .kpiCardPurple & {
+    background: $info-color;
+  }
+
+  .kpiCardOrange & {
+    background: $warning-color;
+  }
+
+  span {
+    color: $white;
+    font-size: 1.25rem;
+  }
 }
 
 .kpiDetails {
@@ -310,56 +406,106 @@ $border-color: #e5e7eb;
 }
 
 .kpiLabel {
-  font-size: 0.8rem;
-  color: $medium-gray;
+  font-size: 0.875rem;
+  font-weight: 500;
   margin: 0 0 0.25rem 0;
+
+  .kpiCardBlue & {
+    color: color.adjust($primary-color, $lightness: -10%);
+  }
+
+  .kpiCardGreen & {
+    color: color.adjust($success-color, $lightness: -10%);
+  }
+
+  .kpiCardPurple & {
+    color: color.adjust($info-color, $lightness: -10%);
+  }
+
+  .kpiCardOrange & {
+    color: color.adjust($warning-color, $lightness: -10%);
+  }
 }
 
 .kpiValue {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: $dark-gray;
-  margin: 0 0 0.25rem 0;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+
+  .kpiCardBlue & {
+    color: color.adjust($primary-color, $lightness: -30%);
+  }
+
+  .kpiCardGreen & {
+    color: color.adjust($success-color, $lightness: -30%);
+  }
+
+  .kpiCardPurple & {
+    color: color.adjust($info-color, $lightness: -30%);
+  }
+
+  .kpiCardOrange & {
+    color: color.adjust($warning-color, $lightness: -30%);
+  }
 }
 
 .kpiSubtext {
-  font-size: 0.8rem;
-  color: $medium-gray;
-  margin: 0;
+  font-size: 0.75rem;
+  margin: 0.25rem 0 0 0;
+
+  .kpiCardBlue & {
+    color: $primary-color;
+  }
+
+  .kpiCardGreen & {
+    color: $success-color;
+  }
+
+  .kpiCardPurple & {
+    color: $info-color;
+  }
+
+  .kpiCardOrange & {
+    color: $warning-color;
+  }
 }
 
+// Charts
 .chartsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  
-  @media (max-width: 1024px) {
+
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 }
 
 .chartContainer {
-  @include card-style;
+  @include card;
+  padding: 1.5rem;
 }
 
 .chartTitle {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: $dark-gray;
   margin: 0 0 1rem 0;
+  color: $text-primary;
 }
 
+// Alert card
 .alertCard {
-  @include card-style;
-  border-left: 4px solid $red;
+  background: $warning-light;
+  border: 1px solid color.adjust($warning-color, $lightness: 30%);
+  border-radius: $border-radius-lg;
+  padding: 1rem;
 }
 
 .alertTitle {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: $dark-gray;
-  margin: 0 0 1rem 0;
+  color: color.adjust($warning-color, $lightness: -20%);
+  margin: 0 0 0.75rem 0;
 }
 
 .alertGrid {
@@ -369,70 +515,73 @@ $border-color: #e5e7eb;
 }
 
 .alertItem {
-  padding: 1rem;
-  background: lighten($red, 42%);
-  border-radius: 6px;
+  background: $white;
+  padding: 0.75rem;
+  border-radius: $border-radius;
+  border: 1px solid color.adjust($warning-color, $lightness: 50%);
 }
 
 .alertItemHeader {
-  @include flex-center;
-  justify-content: space-between;
+  @include flex-between;
   margin-bottom: 0.5rem;
 }
 
 .alertItemTitle {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: $dark-gray;
+  font-weight: 500;
+  color: $text-primary;
   margin: 0;
 }
 
 .priorityBadge {
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 20px;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
   font-weight: 500;
-  
+
   &.priorityHigh {
-    background: lighten($red, 10%);
-    color: $white;
+    background: $danger-light;
+    color: color.adjust($danger-color, $lightness: -20%);
   }
-  
+
   &.priorityMedium {
-    background: #f59e0b;
-    color: $white;
+    background: $warning-light;
+    color: color.adjust($warning-color, $lightness: -20%);
   }
 }
 
 .alertItemMessage {
-  font-size: 0.8rem;
-  color: $dark-gray;
+  font-size: 0.875rem;
+  color: $text-secondary;
   margin: 0;
 }
 
-// Analytics content styles
+// Analytics content
 .analyticsContent {
-  // Styles for analytics tab
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
+// Table
 .tableContainer {
-  @include card-style;
-  margin-bottom: 1.5rem;
+  @include card;
+  overflow: hidden;
 }
 
 .tableHeader {
-  margin-bottom: 1rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid $border-color;
 }
 
 .tableTitle {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: $dark-gray;
   margin: 0 0 0.25rem 0;
+  color: $text-primary;
 }
 
 .tableSubtitle {
-  color: $medium-gray;
+  color: $text-secondary;
   margin: 0;
 }
 
@@ -446,140 +595,151 @@ $border-color: #e5e7eb;
 }
 
 .tableHead {
-  background: $light-gray;
+  background: $border-light;
 }
 
 .tableHeadCell {
-  padding: 0.75rem;
+  padding: 0.75rem 1.5rem;
   text-align: left;
-  font-weight: 600;
-  color: $dark-gray;
-  font-size: 0.8rem;
-  border-bottom: 1px solid $border-color;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .tableBody {
-  // Table body styles
+  tr {
+    border-bottom: 1px solid $border-color;
+  }
 }
 
 .tableRow {
-  border-bottom: 1px solid $border-color;
-  
   &:hover {
-    background: lighten($light-blue, 8%);
+    background: $border-light;
   }
 }
 
 .tableCell {
-  padding: 0.75rem;
-  font-size: 0.9rem;
+  padding: 1rem 1.5rem;
+  color: $text-secondary;
+  font-weight: 500;
+
+  &:first-child {
+    color: $text-primary;
+    font-weight: 600;
+  }
 }
 
 .ratingCell {
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .ratingValue {
   font-weight: 600;
-  margin-right: 0.25rem;
-  
+
   &.ratingHigh {
-    color: $green;
+    color: $success-color;
   }
-  
+
   &.ratingMedium {
-    color: #f59e0b;
+    color: $warning-color;
   }
-  
+
   &.ratingLow {
-    color: $red;
+    color: $danger-color;
   }
 }
 
 .ratingIcon {
-  font-size: 0.8rem;
-  opacity: 0.7;
+  color: $warning-color;
 }
 
 .issueBadge {
-  display: inline-block;
-  background: lighten($red, 35%);
-  color: darken($red, 15%);
-  padding: 0.2rem 0.5rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  display: inline-flex;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background: $danger-light;
+  color: color.adjust($danger-color, $lightness: -20%);
 }
 
 .noIssues {
-  color: $medium-gray;
-  font-style: italic;
-  font-size: 0.8rem;
+  color: $text-muted;
 }
 
 .rateBadge {
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  
+  display: inline-flex;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+
   &.rateHigh {
-    background: lighten($green, 45%);
-    color: darken($green, 20%);
+    background: $success-light;
+    color: color.adjust($success-color, $lightness: -20%);
   }
-  
+
   &.rateMedium {
-    background: lighten(#f59e0b, 40%);
-    color: darken(#f59e0b, 20%);
+    background: $warning-light;
+    color: color.adjust($warning-color, $lightness: -20%);
   }
-  
+
   &.rateLow {
-    background: lighten($red, 35%);
-    color: darken($red, 15%);
+    background: $danger-light;
+    color: color.adjust($danger-color, $lightness: -20%);
   }
 }
 
 .statusBadge {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  
+  display: inline-flex;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+
   &.statusExcellent {
-    background: lighten($green, 45%);
-    color: darken($green, 20%);
+    background: $success-light;
+    color: color.adjust($success-color, $lightness: -20%);
   }
-  
+
   &.statusGood {
-    background: lighten(#3b82f6, 35%);
-    color: darken(#3b82f6, 20%);
+    background: $warning-light;
+    color: color.adjust($warning-color, $lightness: -20%);
   }
-  
+
   &.statusAttention {
-    background: lighten($red, 35%);
-    color: darken($red, 15%);
+    background: $danger-light;
+    color: color.adjust($danger-color, $lightness: -20%);
   }
 }
 
-// Reviews content styles
+// Reviews content
 .reviewsContent {
-  // Styles for reviews tab
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+// Bulk Actions
 .bulkActionsCard {
-  @include card-style;
-  background: $light-blue;
-  margin-bottom: 1rem;
-  border-left: 4px solid $primary-blue;
+  @include card;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, color.adjust($info-light, $lightness: 5%) 0%, color.adjust($info-light, $lightness: 10%) 100%);
+  border-color: color.adjust($info-color, $lightness: 30%);
 }
 
 .bulkActionsContent {
-  @include flex-center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+  @include flex-between;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .bulkActionsInfo {
@@ -587,175 +747,220 @@ $border-color: #e5e7eb;
 }
 
 .bulkActionsTitle {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: $dark-gray;
+  color: color.adjust($info-color, $lightness: -20%);
   margin: 0 0 0.25rem 0;
 }
 
 .bulkActionsSubtitle {
-  color: $medium-gray;
+  color: $info-color;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .bulkActionButtons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
+// Button styles
 .button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  @include button-base;
   font-weight: 500;
-  cursor: pointer;
-  
-  &.buttonSuccess {
-    background: $green;
-    color: $white;
-    
-    &:hover {
-      background: darken($green, 10%);
-    }
-  }
-  
-  &.buttonDanger {
-    background: $red;
-    color: $white;
-    
-    &:hover {
-      background: darken($red, 10%);
-    }
-  }
-  
-  &.buttonPrimary {
-    background: $primary-blue;
-    color: $white;
-    
-    &:hover {
-      background: darken($primary-blue, 10%);
-    }
-  }
-  
-  &.buttonSecondary {
-    background: $light-gray;
-    color: $dark-gray;
-    
-    &:hover {
-      background: darken($light-gray, 10%);
-    }
+  transition: $transition;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
+.buttonPrimary {
+  background: $primary-color;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background: $primary-dark;
+  }
+
+  &:focus {
+    ring-color: rgba($primary-color, 0.5);
+  }
+}
+
+.buttonSuccess {
+  background: $success-color;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($success-color, $lightness: -10%);
+  }
+
+  &:focus {
+    ring-color: rgba($success-color, 0.5);
+  }
+}
+
+.buttonDanger {
+  background: $danger-color;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($danger-color, $lightness: -10%);
+  }
+
+  &:focus {
+    ring-color: rgba($danger-color, 0.5);
+  }
+}
+
+.buttonSecondary {
+  background: $secondary-color;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($secondary-color, $lightness: -10%);
+  }
+
+  &:focus {
+    ring-color: rgba($secondary-color, 0.5);
+  }
+}
+
+// Results Summary
 .resultsSummaryCard {
-  @include card-style;
-  margin-bottom: 1rem;
+  @include card;
+  padding: 1rem 1.5rem;
+  background: $border-light;
+  border-color: color.adjust($border-color, $lightness: 3%);
 }
 
 .resultsSummaryContent {
-  @include flex-center;
-  justify-content: space-between;
+  @include flex-between;
+  align-items: center;
 }
 
 .resultsSummaryText {
+  color: $text-secondary;
   margin: 0;
-  color: $medium-gray;
+  font-size: 0.875rem;
 }
 
 .selectAllWrapper {
-  @include flex-center;
+  display: flex;
+  align-items: center;
 }
 
 .selectAllLabel {
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   cursor: pointer;
-}
-
-.checkbox {
-  margin-right: 0.5rem;
+  font-size: 0.875rem;
+  color: $text-secondary;
+  font-weight: 500;
 }
 
 .selectAllText {
-  font-size: 0.9rem;
-  color: $dark-gray;
+  user-select: none;
 }
 
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  accent-color: $primary-color;
+  cursor: pointer;
+}
+
+// Reviews Grid
 .reviewsGrid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .reviewCard {
-  @include card-style;
-  border-left: 4px solid $border-color;
-  
+  @include card;
+  padding: 1.5rem;
+  transition: $transition;
+
   &:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
   }
 }
 
 .reviewCardHeader {
-  @include flex-center;
-  justify-content: space-between;
+  @include flex-between;
   margin-bottom: 1rem;
+  align-items: flex-start;
 }
 
 .reviewCardLeft {
-  @include flex-center;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1;
 }
 
 .reviewInfo {
-  margin-left: 0.75rem;
+  flex: 1;
 }
 
 .reviewProperty {
   font-size: 1rem;
   font-weight: 600;
-  color: $dark-gray;
+  color: $text-primary;
   margin: 0 0 0.25rem 0;
 }
 
 .reviewAuthor {
-  font-size: 0.8rem;
-  color: $medium-gray;
+  font-size: 0.875rem;
+  color: $text-secondary;
   margin: 0;
 }
 
 .reviewCardRight {
-  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
 }
 
 .reviewRating {
-  @include flex-center;
-  justify-content: flex-end;
-  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .reviewDate {
-  font-size: 0.8rem;
-  color: $medium-gray;
+  font-size: 0.75rem;
+  color: $text-muted;
   margin: 0;
 }
 
 .reviewText {
   font-style: italic;
-  color: $dark-gray;
+  color: $text-secondary;
   margin: 0 0 1rem 0;
   padding: 0;
-  border-left: none;
-  font-size: 0.9rem;
+  border-left: 3px solid $border-color;
+  padding-left: 1rem;
   line-height: 1.5;
 }
 
 .reviewCardFooter {
-  @include flex-center;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .reviewTags {
@@ -765,119 +970,281 @@ $border-color: #e5e7eb;
 }
 
 .tag {
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 20px;
-  font-size: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
   font-weight: 500;
-  
-  &.tagCategory {
-    background: lighten($primary-blue, 40%);
-    color: darken($primary-blue, 20%);
-  }
-  
-  &.tagChannel {
-    background: lighten($green, 45%);
-    color: darken($green, 20%);
-  }
-  
-  &.tagWarning {
-    background: lighten($red, 35%);
-    color: darken($red, 15%);
-  }
+}
+
+.tagCategory {
+  background: $primary-light;
+  color: color.adjust($primary-color, $lightness: -20%);
+}
+
+.tagChannel {
+  background: $success-light;
+  color: color.adjust($success-color, $lightness: -20%);
+}
+
+.tagWarning {
+  background: $warning-light;
+  color: color.adjust($warning-color, $lightness: -20%);
 }
 
 .reviewActions {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 .actionLabel {
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   cursor: pointer;
+  font-size: 0.875rem;
+  color: $text-secondary;
+  font-weight: 500;
 }
 
 .actionText {
-  font-size: 0.8rem;
-  color: $dark-gray;
-  margin-left: 0.25rem;
+  user-select: none;
 }
 
+// Empty State
 .emptyState {
-  @include card-style;
+  @include flex-center;
+  flex-direction: column;
+  padding: 3rem 2rem;
   text-align: center;
-  padding: 3rem;
+  grid-column: 1 / -1;
 }
 
 .emptyStateIcon {
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 1rem;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .emptyStateTitle {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: $dark-gray;
+  color: $text-primary;
   margin: 0 0 0.5rem 0;
 }
 
 .emptyStateText {
-  color: $medium-gray;
+  color: $text-secondary;
   margin: 0;
+  max-width: 400px;
 }
 
-// Responsive adjustments
-@media (max-width: 768px) {
+// Responsive Design
+@media (max-width: 1024px) {
   .dashboard {
     flex-direction: column;
   }
-  
+
   .sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid $border-color;
-    
+    &.sidebarOpen {
+      width: 100%;
+      height: auto;
+    }
+
     &.sidebarClosed {
       width: 100%;
-      height: 60px;
-      
-      .sidebarHeaderContent {
-        justify-content: center;
-      }
+      height: 4rem;
     }
   }
-  
+
+  .sidebarContent {
+    height: auto;
+    max-height: 60vh;
+  }
+
+  .kpiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .chartsGrid {
     grid-template-columns: 1fr;
   }
-  
-  .bulkActionsContent {
-    flex-direction: column;
-    align-items: flex-start;
+
+  .alertGrid {
+    grid-template-columns: 1fr;
   }
-  
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .headerTitle {
+    font-size: 1.5rem;
+  }
+
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpiCardContent {
+    gap: 0.75rem;
+  }
+
+  .kpiValue {
+    font-size: 1.5rem;
+  }
+
+  .tabsContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .tab {
+    width: 100%;
+  }
+
+  .reviewsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .reviewCard {
+    padding: 1rem;
+  }
+
   .reviewCardHeader {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.75rem;
   }
-  
+
   .reviewCardRight {
-    text-align: left;
-    margin-top: 0.5rem;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 1rem;
   }
-  
-  .reviewRating {
-    justify-content: flex-start;
-  }
-  
+
   .reviewCardFooter {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.75rem;
   }
-  
+
   .reviewActions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .bulkActionsContent {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .bulkActionButtons {
+    flex-direction: column;
     width: 100%;
-    justify-content: space-between;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+
+// Dark mode support (optional)
+@media (prefers-color-scheme: dark) {
+  $background: #0f172a;
+  $white: #1e293b;
+  $text-primary: #f8fafc;
+  $text-secondary: #cbd5e1;
+  $text-muted: #94a3b8;
+  $border-color: #334155;
+  $border-light: #1e293b;
+
+  .dashboard {
+    background: $background;
+    color: $text-primary;
+  }
+
+  .sidebar,
+  .kpiCard,
+  .chartContainer,
+  .tableContainer,
+  .reviewCard,
+  .bulkActionsCard,
+  .resultsSummaryCard {
+    background: $white;
+    color: $text-primary;
+    border-color: $border-color;
+  }
+
+  .tableRow:hover {
+    background: $border-color;
+  }
+
+  .reviewText {
+    border-left-color: $border-color;
+  }
+}
+
+// Animations
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidebar {
+  animation: slideIn 0.3s ease-out;
+}
+
+.reviewCard,
+.kpiCard {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Print styles
+@media print {
+  .sidebar {
+    display: none;
+  }
+
+  .toggleButton {
+    display: none;
+  }
+
+  .tabsContainer {
+    display: none;
+  }
+
+  .bulkActionsCard {
+    display: none;
+  }
+
+  .reviewActions {
+    display: none;
+  }
+
+  .checkbox {
+    display: none;
   }
 }

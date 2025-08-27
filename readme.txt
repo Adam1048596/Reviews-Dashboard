@@ -22,7 +22,16 @@ It allows managers to fetch, filter, and manage guest reviews from Hostaway (or 
 
 ## 📦 Installation
 
-### 1. Clone the repo
-```bash
-git clone https://github.com/Adam1048596/reviews-dashboard.git
+Clone and set up both backend and frontend:
+
+# Clone repository
+git clone https://github.com/your-username/reviews-dashboard.git
 cd reviews-dashboard
+
+# Install backend dependencies
+cd server
+npm install
+
+# Install frontend dependencies
+cd ../client
+npm install

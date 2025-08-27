@@ -1,0 +1,109 @@
+📖 Reviews Dashboard – Documentation
+
+A review management dashboard built with React, Vite, SCSS on the frontend and Node.js/Express on the backend.
+It allows managers to fetch, filter, and manage guest reviews from Hostaway (or mock API) and control which reviews are displayed publicly.
+
+🛠️ Tech Stack
+Frontend (Client)
+
+Framework: React with Vite
+Styling: SCSS modules
+
+UI Enhancements:
+
+react-slick + slick-carousel for Review carousels
+recharts: Charts & graphs for analytics
+Routing: React Router DOM
+Data Fetching: Axios & Fetch API
+State Management: React hooks (useState, useEffect)
+
+Backend (Server)
+
+Framework: Node.js + Express.js
+
+Middleware: CORS (to enable client-server requests)
+Data Handling: Axios (for external API calls – e.g., Hostaway)
+Dev Tools: Nodemon (auto-reload during development)
+Mock Data: JSON file simulating Hostaway reviews
+
+🎨 Frontend (Client) Located in client/
+
+Main Libraries
+
+Vite → Lightning-fast build tool & dev server for React.
+react → Core UI framework
+react-router-dom → Navigation & routing
+axios → API requests (with fetch as a lightweight alternative)
+react-slick + slick-carousel → Review carousel/slider
+recharts → Data visualization (rating distribution, property performance)
+sass → Extra styling with SCSS modules
+
+Pages
+
+Dashboard.jsx → Manager dashboard UI (review filters, charts, bulk actions)
+PropertyReviews.jsx → Public-facing property page component (carousel of selected reviews)
+
+Features
+
+✔ Filters: Property, Category, Channel, Rating, Date
+Managers can drill down reviews by property name (e.g., "Modern Loft in City Center").
+Filter by review category (Cleanliness, Communication, Accuracy, Value, etc.).
+Narrow down by channel (Airbnb, Booking, Hostaway).
+Sort reviews based on rating ranges (high scores, mid-range, low).
+Date-based filters allow viewing reviews from all time, last week, last month, or last quarter.
+
+✔ Sidebar toggle (expand/collapse for compact/full view)
+The filter sidebar can be expanded for detailed filtering.
+Collapsed mode gives a wider view of review cards and charts.
+Perfect for managers who want a minimal view while focusing on data.
+
+✔ Bulk select & toggle publicDisplay
+Select multiple reviews at once using checkboxes.
+Perform bulk actions such as setting reviews to public (visible on property page) or private.
+Saves time when managing large sets of reviews.
+
+✔ Charts for visualizing ratings
+Integrated with Recharts to show:
+Distribution of ratings (high/medium/low).
+Performance by category (cleanliness, communication, etc.).
+Trends over time (review activity per week/month).
+Helps managers spot patterns and improve guest experience.
+
+✔ Styled to match Flex Living layout
+The dashboard and property review components follow Flex Living’s design system.
+Consistent fonts, colors, and spacing for seamless integration with the property details page.
+Review carousel on public pages blends natively into the Flex Living property design.
+
+🔧 Backend (Server) Located in server/
+
+Main Libraries
+
+express → REST API framework
+cors → Cross-origin request handling
+axios → For external API calls (Hostaway)
+nodemon → Auto-reload during development
+
+Features
+
+✔ Fetch reviews from Hostaway API (with fallback to local mock JSON).
+Normalize reviews using normalizeHostaway → consistent structure across API + mock data.
+
+✔ Public reviews endpoint:
+GET /api/reviews/public → Returns only reviews with publicDisplay = true.
+
+✔ Toggle visibility:
+PATCH /api/reviews/hostaway/:id/public → Update review visibility (publicDisplay) and persist to reviews.json.
+
+✔ Error handling & fallback:
+If Hostaway API fails, automatically serve mock reviews from local file.
+Logging: Console logs for API calls, errors, and normalization results.
+
+API Endpoints
+
+✔ Manager Dashboard
+GET /api/reviews/hostaway → Fetch all reviews (mock or Hostaway).
+PATCH /api/reviews/hostaway/:id/public → Toggle a review’s publicDisplay flag.
+
+✔ Public Website
+GET /api/reviews/public → Returns only reviews with publicDisplay: true.
+Used by the Flex Living property page to display selected guest reviews.

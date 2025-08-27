@@ -36,3 +36,9 @@ npm install
 # Install frontend dependencies
 cd ../client
 npm install
+
+## ▶️ Running the Project
+
+1. Start the backend (server) runs at: http://localhost:5000
+cd server
+npm run dev

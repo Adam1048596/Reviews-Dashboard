@@ -3,8 +3,6 @@
 A review management dashboard built with React, Vite, SCSS on the frontend and Node.js/Express on the backend.
 It allows managers to fetch, filter, and manage guest reviews from Hostaway (or mock API) and control which reviews are displayed publicly.
 
-## 🏗️ Architecture Overview
-
 🛠️ Tech Stack
 Frontend (Client)
 

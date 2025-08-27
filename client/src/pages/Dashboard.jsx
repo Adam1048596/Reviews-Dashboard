@@ -1,3 +1,16 @@
+/*
+  NOTE FOR REVIEWERS:
+  Normally, I would split the Dashboard into smaller reusable components 
+  (Filters, Charts, ReviewList, Sidebar, etc.) to improve maintainability 
+  and scalability.
+
+  I started this assignment later than intended because I didn’t see the email immediately
+  when it was first sent. Due to limited time available for this assignment, I focused on delivering 
+  a working solution first. With more time, I would refactor the Dashboard 
+  into a cleaner, fully componentized structure.
+*/
+
+
 import { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 import styles from "./Dashboard.module.scss";

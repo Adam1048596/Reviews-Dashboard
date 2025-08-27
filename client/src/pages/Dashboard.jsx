@@ -17,8 +17,8 @@ import styles from "./Dashboard.module.scss";
 
 export default function Dashboard() {
   
+  const API_BASE_URL = 'https://reviews-dashboard-server-production.up.railway.app/';
   // ========== STATE MANAGEMENT ==========
-  
   // Reviews data from API
   const [reviews, setReviews] = useState([]);
   
@@ -50,7 +50,7 @@ export default function Dashboard() {
 useEffect(() => {
   const fetchReviews = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/reviews/hostaway");
+      const response = await fetch(`${API_BASE_URL}/api/reviews/hostaway`);
       const data = await response.json();
 
       setReviews(data.reviews);
@@ -82,7 +82,7 @@ useEffect(() => {
     setPublicDisplay((prev) => ({ ...prev, [id]: newDisplayStatus }));
     
     try {
-      await fetch(`http://localhost:5000/api/reviews/hostaway/${id}/public`, {
+      await fetch(`${API_BASE_URL}/api/reviews/hostaway/${id}/public`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ useEffect(() => {
     try {
       await Promise.all(
         Array.from(selectedReviews).map(id =>
-          fetch(`http://localhost:5000/api/reviews/hostaway/${id}/public`, {
+          fetch(`${API_BASE_URL}/api/reviews/hostaway/${id}/public`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',

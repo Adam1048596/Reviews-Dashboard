@@ -1,6 +1,6 @@
 #Reviews Dashboard
 
-A review management dashboard built with **React (frontend)** and **Node.js/Express (backend)**.  
+A review management dashboard built with vite/React (frontend) and Node.js/Express (backend).  
 It allows managers to fetch, filter, and manage guest reviews from Hostaway (or mock API) and control which reviews are displayed publicly.
 
 ---

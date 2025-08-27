@@ -33,20 +33,29 @@ export default function Dashboard() {
   /**
    * Fetch reviews data from API on component mount
    */
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/reviews/hostaway");
-        const data = await response.json();
-        setReviews(data.reviews);
-      } catch (err) {
-        console.error("Error fetching reviews:", err);
-        setError("Failed to fetch reviews.");
-      }
-    };
+useEffect(() => {
+  const fetchReviews = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/reviews/hostaway");
+      const data = await response.json();
 
-    fetchReviews();
-  }, []);
+      setReviews(data.reviews);
+
+      // 🔑 initialize publicDisplay state from backend
+      const initialDisplay = {};
+      data.reviews.forEach(r => {
+        initialDisplay[r.id] = r.publicDisplay || false;
+      });
+      setPublicDisplay(initialDisplay);
+
+    } catch (err) {
+      console.error("Error fetching reviews:", err);
+      setError("Failed to fetch reviews.");
+    }
+  };
+
+  fetchReviews();
+}, []);
 
   // ========== REVIEW MANAGEMENT FUNCTIONS ==========
   

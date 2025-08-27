@@ -1,6 +1,6 @@
 #Reviews Dashboard
 
-A review management dashboard built with **React (frontend)** and **Node.js/Express (backend)**.  
+A review management dashboard built with vite/React (frontend) and Node.js/Express (backend).  
 It allows managers to fetch, filter, and manage guest reviews from Hostaway (or mock API) and control which reviews are displayed publicly.
 
 ---
@@ -24,6 +24,7 @@ It allows managers to fetch, filter, and manage guest reviews from Hostaway (or 
 
 Clone and set up both backend and frontend:
 
+```bash
 # Clone repository
 git clone https://github.com/your-username/reviews-dashboard.git
 cd reviews-dashboard
@@ -35,3 +36,14 @@ npm install
 # Install frontend dependencies
 cd ../client
 npm install
+
+## ▶️ Running the Project
+
+```bash
+1. Start the backend (server) runs at: http://localhost:5000
+cd server
+npm start
+
+2. Start the frontend (client)
+cd client
+npm run dev

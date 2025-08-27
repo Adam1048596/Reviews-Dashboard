@@ -1,11 +1,24 @@
+/*
+  NOTE FOR REVIEWERS:
+  Normally, I would split the Dashboard into smaller reusable components 
+  (Filters, Charts, ReviewList, Sidebar, etc.) to improve maintainability 
+  and scalability.
+
+  I started this assignment later than intended because I didn’t see the email immediately
+  when it was first sent. Due to limited time available for this assignment, I focused on delivering 
+  a working solution first. With more time, I would refactor the Dashboard 
+  into a cleaner, fully componentized structure.
+*/
+
+
 import { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 import styles from "./Dashboard.module.scss";
 
 export default function Dashboard() {
   
+  const API_BASE_URL = 'https://reviews-dashboard-server-production.up.railway.app/';
   // ========== STATE MANAGEMENT ==========
-  
   // Reviews data from API
   const [reviews, setReviews] = useState([]);
   
@@ -32,12 +45,12 @@ export default function Dashboard() {
   // ========== DATA FETCHING ==========
   
   /**
-   * Fetch reviews data from API on component mount
+   * Fetch reviews data from API
    */
 useEffect(() => {
   const fetchReviews = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/reviews/hostaway");
+      const response = await fetch(`https://reviews-dashboard-server-production.up.railway.app/api/reviews/hostaway`);
       const data = await response.json();
 
       setReviews(data.reviews);
@@ -69,7 +82,7 @@ useEffect(() => {
     setPublicDisplay((prev) => ({ ...prev, [id]: newDisplayStatus }));
     
     try {
-      await fetch(`http://localhost:5000/api/reviews/hostaway/${id}/public`, {
+      await fetch(`https://reviews-dashboard-server-production.up.railway.app/api/reviews/hostaway/${id}/public`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -125,7 +138,7 @@ useEffect(() => {
     try {
       await Promise.all(
         Array.from(selectedReviews).map(id =>
-          fetch(`http://localhost:5000/api/reviews/hostaway/${id}/public`, {
+          fetch(`https://reviews-dashboard-server-production.up.railway.app/api/reviews/hostaway/${id}/public`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -456,7 +469,7 @@ useEffect(() => {
               </select>
             </div>
 
-            {/* Category Filter - Fixed to use ratingsByCategory keys */}
+            {/* Category Filter */}
             <div className={styles.filterGroup}>
               <label className={styles.filterLabel}>📋 Category</label>
               <select

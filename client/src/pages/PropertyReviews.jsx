@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./PropertyReviews.module.scss";
-const API_BASE_URL = 'https://reviews-dashboard-server-production.up.railway.app/';
+const API_BASE_URL = 'https://reviews-dashboard-server-production.up.railway.app';
 
 const PropertyReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -14,7 +14,7 @@ const PropertyReviews = () => {
     console.log("PropertyReviews: Component mounted, fetching reviews...");
     
     // Fetch reviews from API
-    fetch(`${API_BASE_URL}/api/reviews/public`)
+    fetch(`https://reviews-dashboard-server-production.up.railway.app/api/reviews/public`)
       .then((res) => {
         console.log("PropertyReviews: Response status:", res.status);
         if (!res.ok) {

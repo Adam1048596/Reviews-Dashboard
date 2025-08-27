@@ -24,6 +24,7 @@ It allows managers to fetch, filter, and manage guest reviews from Hostaway (or 
 
 Clone and set up both backend and frontend:
 
+```bash
 # Clone repository
 git clone https://github.com/your-username/reviews-dashboard.git
 cd reviews-dashboard

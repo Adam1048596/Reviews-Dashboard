@@ -1,64 +1,49 @@
-if (response.data && response.data.status === "success" && Array.isArray(response.data.result)) {
-  // COMMON PATH: The structure is valid and we have an array
-  if (response.data.result.length > 0) {
-    // SUBCASE 1: Array has data
-    reviewsData = response.data.result;
-    source = 'Hostaway API';
-    console.log(`Successfully fetched ${reviewsData.length} reviews from ${source}.`);
-  } else {
-    // SUBCASE 2: Array is empty (Sandbox)
-    console.warn("Live API returned an empty array. Falling back to mock data.");
-    source = 'mock (empty live response)';
-    reviewsData = mockReviews.result;
-  }
-}
+#Reviews Dashboard
 
-    if (response.data && response.data.status === "success" && Array.isArray(response.data.result) && response.data.result.length > 0) {
-      reviewsData = response.data.result;
-      source = 'Hostaway API';
-      console.log(`Successfully fetched ${reviewsData.length} reviews from ${source}.`);
-    } 
-    else if (response.data && response.data.status === "success" && Array.isArray(response.data.result)) {
-      // 3. SUCCESS BUT EMPTY
-      console.warn("Live API returned an empty array. Falling back to mock data.");
-      source = 'mock (empty live response)';
-      reviewsData = mockReviews.result;
-    }
+A review management dashboard built with vite/React (frontend) and Node.js/Express (backend).  
+It allows managers to fetch, filter, and manage guest reviews from Hostaway (or mock API) and control which reviews are displayed publicly.
 
+---
 
+## ✨ Features
+- Fetches reviews from `http://localhost:5000/api/reviews/hostaway`
+- Filter reviews by:
+  - Property
+  - Category (e.g., Cleanliness, Communication, etc.)
+  - Channel (e.g., Airbnb, Booking, Hostaway)
+  - Rating range (High, Medium, Low)
+  - Date range (All, Last Week, Last Month, Last Quarter)
+- Bulk actions: Select multiple reviews and toggle public display.
+- Toggle sidebar filters on/off for a wider view.
+- Public display flag to mark reviews that should be shown on the website.
+- Ready for integration with **Flex Living property details layout**.
 
+---
 
+## 📦 Installation
 
+Clone and set up both backend and frontend:
 
+```bash
+# Clone repository
+git clone https://github.com/your-username/reviews-dashboard.git
+cd reviews-dashboard
 
-  console.error(`❌ Hostaway API request failed: ${error.message}. Falling back to mock data for demonstration.`);
+# Install backend dependencies
+cd server
+npm install
 
-      console.error(`Hostaway API request failed:`, error.message);
-    console.log(`Falling back to mock data for demonstration.`);
+# Install frontend dependencies
+cd ../client
+npm install
 
+## ▶️ Running the Project
 
+```bash
+1. Start the backend (server) runs at: http://localhost:5000
+cd server
+npm start
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ai help me comment on code
-
-
-
-
-     modify the dashboard to move the filters to a sidebar and make the overview data and property performance data respond to the applied filters in real-time.
+2. Start the frontend (client)
+cd client
+npm run dev

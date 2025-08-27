@@ -32,7 +32,7 @@ export default function Dashboard() {
   // ========== DATA FETCHING ==========
   
   /**
-   * Fetch reviews data from API on component mount
+   * Fetch reviews data from API
    */
 useEffect(() => {
   const fetchReviews = async () => {
@@ -456,7 +456,7 @@ useEffect(() => {
               </select>
             </div>
 
-            {/* Category Filter - Fixed to use ratingsByCategory keys */}
+            {/* Category Filter */}
             <div className={styles.filterGroup}>
               <label className={styles.filterLabel}>📋 Category</label>
               <select

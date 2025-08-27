@@ -1,360 +1,433 @@
-// PropertyReviews.module.scss
+.reviewsSection {
+  text-align: center;
+  padding: 5rem 1rem;
+  background-color: #ebeef1;
+  position: relative;
+  overflow: hidden;
 
-.propertyPage {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #333;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #284e4c;
+  }
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2d3436;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #4a90e2, #5aa0f7);
+    border-radius: 2px;
+  }
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #636e72;
+  max-width: 700px;
+  margin: 2rem auto 3rem;
   line-height: 1.6;
 }
 
-.navContainer {
-  padding: 1rem 2rem;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.backLink {
-  color: #0d6efd;
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-/* Property Header Styles */
-.propertyHeader {
-  position: relative;
-  margin-bottom: 2rem;
-}
-
-.propertyHero {
-  position: relative;
-  height: 60vh;
-  overflow: hidden;
-}
-
-.propertyHeroImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.propertyOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-  color: white;
-  padding: 2rem;
-}
-
-.propertyTitle {
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.propertyLocation {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  opacity: 0.9;
-}
-
-.propertyRating {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.ratingValue {
-  font-weight: 600;
-}
-
-.reviewCount {
-  opacity: 0.8;
-}
-
-/* Container */
-.container {
-  max-width: 1200px;
+.sliderContainer {
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* Property Details */
-.propertyDetails {
-  padding: 2rem 0;
-}
-
-.detailsGrid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-}
-
-.mainDetails h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.propertyDescription {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 2rem;
-  color: #555;
-}
-
-.amenitiesSection {
-  margin-top: 2rem;
-}
-
-.amenitiesSection h3 {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-}
-
-.amenitiesGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-
-.amenityItem {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.amenityIcon {
-  color: #4CAF50;
-  font-weight: bold;
-}
-
-/* Booking Widget */
-.bookingWidget {
-  position: sticky;
-  top: 2rem;
-}
-
-.bookingCard {
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.priceSection {
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.price {
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-
-.priceLabel {
-  display: block;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.bookButton {
-  width: 100%;
-  padding: 1rem;
-  background-color: #FF5A5F;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  position: relative;
+  padding: 0 80px; // More space for arrows
   
-  &:hover {
-    background-color: #e14a4f;
+  // Fix for slick slider display issues
+  :global {
+    .slick-slider {
+      display: block;
+      position: relative;
+      box-sizing: border-box;
+      user-select: none;
+      touch-action: pan-y;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .slick-list {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      
+      &:focus {
+        outline: none;
+      }
+      
+      &.dragging {
+        cursor: pointer;
+        cursor: hand;
+      }
+    }
+
+    .slick-track {
+      position: relative;
+      top: 0;
+      left: 0;
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+      
+      &:before, &:after {
+        content: "";
+        display: table;
+      }
+      
+      &:after {
+        clear: both;
+      }
+      
+      .slick-loading & {
+        visibility: hidden;
+      }
+    }
+
+    .slick-slide {
+      float: left;
+      height: 100%;
+      min-height: 1px;
+      display: none;
+      
+      [dir="rtl"] & {
+        float: right;
+      }
+      
+      img {
+        display: block;
+      }
+      
+      &.slick-loading img {
+        display: none;
+      }
+
+      &.dragging img {
+        pointer-events: none;
+      }
+      
+      // Display active slides
+      &.slick-active {
+        display: block;
+      }
+      
+      // Display current slide
+      &.slick-current {
+        display: block;
+      }
+    }
+
+    .slick-initialized .slick-slide {
+      display: block;
+    }
+
+    .slick-loading .slick-slide {
+      visibility: hidden;
+    }
+
+    .slick-vertical .slick-slide {
+      display: block;
+      height: auto;
+      border: 1px solid transparent;
+    }
+
+    .slick-arrow.slick-hidden {
+      display: none;
+    }
+    
+    // Hide default slick arrows completely
+    .slick-prev, 
+    .slick-next {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
   }
 }
 
-/* Reviews Section */
-.reviewsSection {
-  padding: 3rem 0;
-  background-color: #f8f9fa;
+.slide {
+  outline: none;
 }
 
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.sectionHeader h2 {
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-.ratingSummary {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.overallRating {
-  text-align: center;
-}
-
-.ratingLarge {
-  font-size: 2.5rem;
-  font-weight: 700;
-}
-
-.ratingMax {
-  font-size: 1.2rem;
-  color: #666;
-}
-
-.ratingDetails p {
-  margin-top: 0.5rem;
-  color: #666;
-}
-
-.ratingStarsLarge {
-  font-size: 1.2rem;
-  letter-spacing: 2px;
-}
-
-/* Reviews Grid */
-.reviewsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
-}
-
-.reviewCard {
+// Custom arrow styles
+.customArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.reviewHeader {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.reviewerInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.reviewerAvatar {
-  width: 40px;
-  height: 40px;
+  border: 1px solid #e8e8e8;
   border-radius: 50%;
-  background-color: #4CAF50;
-  color: white;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 18px;
+  color: #999;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background: #284e4c;
+    color: white;
+    border-color: #284e4c;
+    box-shadow: 0 4px 15px rgba(40, 78, 76, 0.3);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 78, 76, 0.2);
+  }
+}
+
+.prevArrow {
+  left: -70px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.nextArrow {
+  right: -70px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+// Dots container styling
+.dotsContainer {
+  display: flex !important;
+  position: relative;
+  top: 40px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin: 0 6px;
+    cursor: pointer;
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 0;
+      width: 12px;
+      height: 12px;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:before {
+        display: none; // Hide default slick dots
+      }
+    }
+  }
+}
+
+.customDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d1d5db;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+// Active dot styling (using global selector for slick)
+:global(.slick-active) .customDot {
+  background: #374151 !important;
+  opacity: 1 !important;
+  transform: scale(1.2);
+}
+
+.reviewCard {
+  margin: 0 15px;
+  position: relative;
+  min-height: 450px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 2rem;
+    min-height: 400px;
+    margin: 0 10px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1.5rem;
+    min-height: 350px;
+    margin: 0 5px;
+  }
+}
+
+.quoteIcon {
+  font-size: 4rem;
+  color: #284e4c;
+  font-family: Georgia, serif;
+  line-height: 0.8;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+}
+
+.profileImage {
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+  @media (max-width: 768px) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.stars {
+  font-size: 1.6rem;
+  color: #284e4c;
+  margin-bottom: 2rem;
+  letter-spacing: 3px;
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+  }
+}
+
+.comment {
+  font-style: italic;
+  color: #374151;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+  font-size: 1.2rem;
+  text-align: center;
+  max-width: 600px;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+}
+
+.reviewerInfo {
+  text-align: center;
+}
+
+.reviewer {
   font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: #111827;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
 }
 
-.reviewerName {
-  font-weight: 600;
-  margin-bottom: 0.2rem;
+.property {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 }
 
-.reviewDate {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.reviewRating {
+.loadingContainer {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 0.3rem;
-}
-
-.reviewRatingValue {
-  font-weight: 600;
-}
-
-.reviewCategory {
-  margin-bottom: 1rem;
-}
-
-.categoryTag {
-  background-color: #f0f7ff;
-  color: #0066cc;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.reviewContent {
-  margin-bottom: 1rem;
-}
-
-.reviewText {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #444;
-  font-style: italic;
-  quotes: "“" "”" "‘" "’";
-}
-
-.reviewText::before {
-  content: open-quote;
-  font-size: 2rem;
-  line-height: 0;
-  vertical-align: -0.4em;
-  color: #ccc;
-  margin-right: 0.2rem;
-}
-
-.reviewText::after {
-  content: close-quote;
-  font-size: 2rem;
-  line-height: 0;
-  vertical-align: -0.4em;
-  color: #ccc;
-  margin-left: 0.2rem;
-}
-
-.hostResponse {
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-left: 3px solid #4CAF50;
-  border-radius: 4px;
-}
-
-.hostResponse h5 {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-
-.hostResponse p {
-  color: #555;
-  line-height: 1.5;
-}
-
-/* No Reviews State */
-.noReviews {
-  text-align: center;
+  align-items: center;
+  justify-content: center;
   padding: 3rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4a90e2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+
+.noReviews {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 .noReviewsIcon {
@@ -362,82 +435,30 @@
   margin-bottom: 1rem;
 }
 
-.noReviews h3 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-
-.noReviews p {
-  color: #666;
-}
-
-/* Loading and Error States */
-.loading, .error {
-  text-align: center;
-  padding: 3rem;
-  font-size: 1.2rem;
-}
-
-.error {
-  color: #d32f2f;
-}
-
-/* Responsive Design */
-@media (max-width: 900px) {
-  .detailsGrid {
-    grid-template-columns: 1fr;
+// Responsive styles
+@media (max-width: 992px) {
+  .reviewsSection {
+    padding: 4rem 1rem;
   }
   
-  .bookingWidget {
-    position: static;
-    margin-top: 2rem;
-  }
-  
-  .propertyHero {
-    height: 40vh;
-  }
-  
-  .propertyTitle {
-    font-size: 2rem;
+  .title {
+    font-size: 2.2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .sectionHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+  .title {
+    font-size: 2rem;
   }
   
-  .reviewsGrid {
-    grid-template-columns: 1fr;
-  }
-  
-  .amenitiesGrid {
-    grid-template-columns: 1fr;
+  .subtitle {
+    font-size: 1rem;
+    margin: 1.5rem auto 2.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .propertyOverlay {
-    padding: 1rem;
-  }
-  
-  .propertyTitle {
+  .title {
     font-size: 1.8rem;
-  }
-  
-  .reviewHeader {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .reviewRating {
-    align-items: flex-start;
-  }
-  
-  .navContainer {
-    padding: 1rem;
   }
 }

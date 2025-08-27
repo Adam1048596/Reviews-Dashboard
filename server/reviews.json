@@ -27,7 +27,7 @@
       ],
       "publicReview": "Sophie and her friends were amazing guests, super respectful and clean!",
       "submittedAt": "2022-02-15 10:45:00",
-      "PublicDisplayStatus": false
+      "PublicDisplayStatus": true
     },
     {
       "id": 4093,
@@ -1106,7 +1106,7 @@
       ],
       "publicReview": "The loft was next to a construction site that started at 6 AM. The listing made no mention of this. Impossible to sleep.",
       "submittedAt": "2023-12-28 10:45:00",
-      "PublicDisplayStatus": false
+      "PublicDisplayStatus": true
     },
     {
       "id": 1397,
@@ -1438,7 +1438,7 @@
       ],
       "publicReview": "An absolute digital detox. Unforgettable experience. The silence and stars at night were breathtaking.",
       "submittedAt": "2025-08-25 09:30:00",
-      "PublicDisplayStatus": true
+      "PublicDisplayStatus": false
     },
     {
       "id": 10004,
@@ -1496,7 +1496,7 @@
       ],
       "publicReview": "The beach access is the only positive. The bungalow was dirty and the air conditioning was broken. Not worth the price at all.",
       "submittedAt": "2025-08-21 16:50:00",
-      "PublicDisplayStatus": false
+      "PublicDisplayStatus": true
     },
     {
       "id": 10006,
@@ -1757,7 +1757,7 @@
       ],
       "publicReview": "Felt like stepping back in time, but with all the modern comforts. Perfect for our large family gathering.",
       "submittedAt": "2025-08-26 10:00:00",
-      "PublicDisplayStatus": true
+      "PublicDisplayStatus": false
     },
     {
       "id": 10015,
@@ -1873,7 +1873,7 @@
       ],
       "publicReview": "We woke up to views of the vineyards every morning. The wine tasting tour was a highlight. Pure magic.",
       "submittedAt": "2025-08-25 14:20:00",
-      "PublicDisplayStatus": true
+      "PublicDisplayStatus": false
     },
     {
       "id": 10019,
@@ -2511,7 +2511,7 @@
       ],
       "publicReview": "It's just a bedroom in someone's busy house, not a private estate. Very awkward with people constantly around.",
       "submittedAt": "2025-08-24 10:40:00",
-      "PublicDisplayStatus": false
+      "PublicDisplayStatus": true
     },
     {
       "id": 10041,
@@ -2685,7 +2685,7 @@
       ],
       "publicReview": "Advertised as luxury, but the furniture was scratched, the towels were thin, and the 'jacuzzi' tub was just a regular tub.",
       "submittedAt": "2025-08-26 14:50:00",
-      "PublicDisplayStatus": false
+      "PublicDisplayStatus": true
     },
     {
       "id": 10047,

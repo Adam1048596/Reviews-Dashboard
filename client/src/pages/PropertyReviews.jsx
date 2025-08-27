@@ -1,245 +1,193 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import styles from "./PropertyReviews.module.scss";
 
-export default function PropertyReviews() {
-  const { propertyId } = useParams();
-  const [property, setProperty] = useState(null);
+const PropertyReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch property details and approved reviews
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
+    console.log("PropertyReviews: Component mounted, fetching reviews...");
+    
+    // Fetch reviews from API
+    fetch("http://localhost:5000/api/reviews/public")
+      .then((res) => {
+        console.log("PropertyReviews: Response status:", res.status);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log("PropertyReviews: API data received:", data);
+        console.log("PropertyReviews: Reviews array:", data.reviews);
+        console.log("PropertyReviews: Reviews length:", data.reviews?.length || 0);
         
-        // In a real app, you would fetch from your API
-        // For demo purposes, we'll use mock data
-        const mockProperty = {
-          id: propertyId,
-          title: "Luxury Downtown Apartment",
-          location: {
-            city: "Austin",
-            state: "TX"
-          },
-          averageRating: 8.7,
-          description: "Beautiful luxury apartment in the heart of downtown Austin. Walking distance to restaurants, bars, and entertainment. Features high-end finishes and stunning city views.",
-          amenities: ["Wi-Fi", "Air Conditioning", "Kitchen", "Washer", "Dryer", "TV", "Pool", "Gym"],
-          price: {
-            perNight: 189
-          },
-          images: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"]
-        };
-        
-        setProperty(mockProperty);
-        
-        // Fetch approved reviews for this property
-        // In a real app, you would fetch from your API: 
-        // const reviewsResponse = await fetch(`/api/reviews/property/${propertyId}?approved=true&public=true`);
-        
-        // Mock reviews data for demonstration
-        const mockReviews = [
-          {
-            id: "rev1",
-            property: "Luxury Downtown Apartment",
-            reviewer: "Sarah Johnson",
-            ratingOverall: 9,
-            text: "We had an amazing stay at this apartment. The location was perfect and the views were stunning. Would definitely recommend!",
-            category: "Location",
-            channel: "Airbnb",
-            submittedAt: "2023-10-15T14:30:00Z",
-            response: "Thank you for your kind words, Sarah! We're delighted you enjoyed your stay and hope to host you again soon."
-          },
-          {
-            id: "rev2",
-            property: "Luxury Downtown Apartment",
-            reviewer: "Michael Chen",
-            ratingOverall: 8,
-            text: "Great apartment with all the amenities we needed. The pool and gym facilities were excellent.",
-            category: "Amenities",
-            channel: "Booking.com",
-            submittedAt: "2023-09-22T09:15:00Z"
-          },
-          {
-            id: "rev3",
-            property: "Luxury Downtown Apartment",
-            reviewer: "Jessica Williams",
-            ratingOverall: 10,
-            text: "Absolutely perfect in every way. The host was incredibly responsive and the apartment was even better than pictured.",
-            category: "Host",
-            channel: "Vrbo",
-            submittedAt: "2023-11-05T16:45:00Z",
-            response: "We're thrilled you had such a wonderful experience, Jessica! It was a pleasure hosting you."
-          }
-        ];
-        
-        setReviews(mockReviews);
-        
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError("Failed to load property information.");
-      } finally {
+        setReviews(data.reviews || []);
         setLoading(false);
+      })
+      .catch((err) => {
+        console.error("PropertyReviews: Error fetching reviews:", err);
+        setError(err.message);
+        setLoading(false);
+        
+        // Set some test data for debugging
+        console.log("PropertyReviews: Setting test data for debugging");
+        setReviews([
+          {
+            id: 1,
+            text: "Test review - API is not working, showing fallback data",
+            reviewer: "Test User",
+            property: "Test Property",
+            ratingOverall: 8
+          },
+          {
+            id: 2,
+            text: "Another test review to check carousel functionality",
+            reviewer: "John Doe",
+            property: "Sample Company",
+            ratingOverall: 9
+          }
+        ]);
+      });
+  }, []);
+
+  // Debug log when reviews change
+  useEffect(() => {
+    console.log("PropertyReviews: Reviews state updated:", reviews);
+    console.log("PropertyReviews: Loading state:", loading);
+    console.log("PropertyReviews: Error state:", error);
+  }, [reviews, loading, error]);
+
+  // Convert 0-10 rating to 1-5 stars
+  const convertRatingToStars = (rating) => {
+    return Math.round((rating / 10) * 5);
+  };
+
+  // Custom arrow components
+  const CustomPrevArrow = ({ onClick }) => (
+    <button
+      className={`${styles.customArrow} ${styles.prevArrow}`}
+      onClick={onClick}
+      aria-label="Previous review"
+    >
+      ←
+    </button>
+  );
+
+  const CustomNextArrow = ({ onClick }) => (
+    <button
+      className={`${styles.customArrow} ${styles.nextArrow}`}
+      onClick={onClick}
+      aria-label="Next review"
+    >
+      →
+    </button>
+  );
+
+  // Slider settings
+  const settings = {
+    dots: true,
+    infinite: reviews.length > 1,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: reviews.length > 1,
+    autoplay: false, // Disable autoplay for debugging
+    autoplaySpeed: 5000,
+    adaptiveHeight: false, // Disable adaptive height for debugging
+    pauseOnHover: true,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    customPaging: (i) => (
+      <div className={styles.customDot} aria-label={`Go to slide ${i + 1}`}></div>
+    ),
+    appendDots: (dots) => (
+      <div>
+        <ul className={styles.dotsContainer}>{dots}</ul>
+      </div>
+    ),
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          dots: true,
+        }
       }
-    };
+    ]
+  };
 
-    fetchData();
-  }, [propertyId]);
-
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
-  if (!property) return <div className={styles.error}>Property not found</div>;
+  console.log("PropertyReviews: Rendering component. Loading:", loading, "Reviews count:", reviews.length);
 
   return (
-    <div className={styles.propertyPage}>
-      {/* Back to Dashboard Link */}
-      <div className={styles.navContainer}>
-        <Link to="/dashboard" className={styles.backLink}>
-          &larr; Back to Dashboard
-        </Link>
-      </div>
+    <div className={styles.reviewsSection}>
+      <div className={styles.container}>
+        <h2 className={styles.title}>What Our Clients Think</h2>
+        <p className={styles.subtitle}>
+          Hear from the companies we work with. Discover how our flexible corporate rental solutions help them simplify relocations, support staff, and secure reliable short- and long-term housing with ease.
+        </p>
 
-      {/* Property Header Section */}
-      <section className={styles.propertyHeader}>
-        <div className={styles.propertyHero}>
-          <img 
-            src={property.images[0]} 
-            alt={property.title}
-            className={styles.propertyHeroImage}
-          />
-          <div className={styles.propertyOverlay}>
-            <h1 className={styles.propertyTitle}>{property.title}</h1>
-            <p className={styles.propertyLocation}>
-              {property.location.city}, {property.location.state}
+
+        {loading ? (
+          <div className={styles.loadingContainer}>
+            <div className={styles.spinner}></div>
+            <p>Loading reviews...</p>
+          </div>
+        ) : reviews.length > 0 ? (
+          <div className={styles.sliderContainer}>
+            <Slider {...settings}>
+              {reviews.map((review, index) => {
+                console.log(`PropertyReviews: Rendering review ${index}:`, review);
+                return (
+                  <div key={review.id || index} className={styles.slide}>
+                    <div className={styles.reviewCard}>
+                      <div className={styles.quoteIcon}>"</div>
+                      
+                      <div className={styles.profileImage}>
+                        <img 
+                          src={review.profileImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.reviewer || 'User')}&background=ff9a44&color=fff&size=120`} 
+                          alt={review.reviewer || 'User'}
+                          className={styles.avatar}
+                          onError={(e) => {
+                            e.target.src = `https://ui-avatars.com/api/?name=User&background=ff9a44&color=fff&size=120`;
+                          }}
+                        />
+                      </div>
+
+                      <div className={styles.stars}>
+                        {"★".repeat(convertRatingToStars(review.ratingOverall || 5))}
+                      </div>
+                      
+                      <p className={styles.comment}>
+                        {review.text || "Great service and excellent experience!"}
+                      </p>
+
+                      <div className={styles.reviewerInfo}>
+                        <h4 className={styles.reviewer}>{review.reviewer || "Anonymous"}</h4>
+                        <p className={styles.property}>{review.property || "Verified Customer"}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </Slider>
+          </div>
+        ) : (
+          <div className={styles.noReviews}>
+            <div className={styles.noReviewsIcon}>💬</div>
+            <p>No reviews available yet.</p>
+            <p style={{ color: 'red', fontSize: '12px' }}>
+              Error: {error || 'API returned empty data'}
             </p>
-            <div className={styles.propertyRating}>
-              <span className={styles.ratingStars}>
-                {"⭐".repeat(Math.round(property.averageRating || 0))}
-              </span>
-              <span className={styles.ratingValue}>
-                {property.averageRating?.toFixed(1) || "No ratings yet"}
-              </span>
-              <span className={styles.reviewCount}>
-                ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
-              </span>
-            </div>
           </div>
-        </div>
-      </section>
-
-      {/* Property Details Section */}
-      <section className={styles.propertyDetails}>
-        <div className={styles.container}>
-          <div className={styles.detailsGrid}>
-            <div className={styles.mainDetails}>
-              <h2>About this property</h2>
-              <p className={styles.propertyDescription}>{property.description}</p>
-              
-              <div className={styles.amenitiesSection}>
-                <h3>Amenities</h3>
-                <div className={styles.amenitiesGrid}>
-                  {property.amenities?.slice(0, 6).map((amenity, index) => (
-                    <div key={index} className={styles.amenityItem}>
-                      <span className={styles.amenityIcon}>✓</span>
-                      <span>{amenity}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            
-            <div className={styles.bookingWidget}>
-              <div className={styles.bookingCard}>
-                <div className={styles.priceSection}>
-                  <span className={styles.price}>${property.price?.perNight}</span>
-                  <span className={styles.priceLabel}>per night</span>
-                </div>
-                <button className={styles.bookButton}>Check Availability</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Reviews Section */}
-      <section className={styles.reviewsSection}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2>Guest Reviews</h2>
-            <div className={styles.ratingSummary}>
-              <div className={styles.overallRating}>
-                <span className={styles.ratingLarge}>{property.averageRating?.toFixed(1) || "0.0"}</span>
-                <span className={styles.ratingMax}>/10</span>
-              </div>
-              <div className={styles.ratingDetails}>
-                <div className={styles.ratingStarsLarge}>
-                  {"⭐".repeat(Math.round(property.averageRating || 0))}
-                </div>
-                <p>Based on {reviews.length} reviews</p>
-              </div>
-            </div>
-          </div>
-
-          {reviews.length > 0 ? (
-            <div className={styles.reviewsGrid}>
-              {reviews.map((review) => (
-                <div key={review.id} className={styles.reviewCard}>
-                  <div className={styles.reviewHeader}>
-                    <div className={styles.reviewerInfo}>
-                      <div className={styles.reviewerAvatar}>
-                        {review.reviewer.charAt(0).toUpperCase()}
-                      </div>
-                      <div className={styles.reviewerDetails}>
-                        <h4 className={styles.reviewerName}>{review.reviewer}</h4>
-                        <p className={styles.reviewDate}>
-                          {new Date(review.submittedAt).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                    <div className={styles.reviewRating}>
-                      <span className={styles.reviewRatingStars}>
-                        {"⭐".repeat(Math.round(review.ratingOverall))}
-                      </span>
-                      <span className={styles.reviewRatingValue}>
-                        {review.ratingOverall}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {review.category && (
-                    <div className={styles.reviewCategory}>
-                      <span className={styles.categoryTag}>{review.category}</span>
-                    </div>
-                  )}
-                  
-                  <div className={styles.reviewContent}>
-                    <p className={styles.reviewText}>"{review.text}"</p>
-                  </div>
-                  
-                  {review.response && (
-                    <div className={styles.hostResponse}>
-                      <h5>Host Response</h5>
-                      <p>{review.response}</p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className={styles.noReviews}>
-              <div className={styles.noReviewsIcon}>💬</div>
-              <h3>No reviews yet</h3>
-              <p>This property doesn't have any published reviews yet.</p>
-            </div>
-          )}
-        </div>
-      </section>
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default PropertyReviews;

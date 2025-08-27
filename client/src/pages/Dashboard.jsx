@@ -3,6 +3,7 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, 
 import styles from "./Dashboard.module.scss";
 
 export default function Dashboard() {
+  
   // ========== STATE MANAGEMENT ==========
   
   // Reviews data from API
@@ -41,7 +42,7 @@ useEffect(() => {
 
       setReviews(data.reviews);
 
-      // 🔑 initialize publicDisplay state from backend
+      // initialize publicDisplay state from backend
       const initialDisplay = {};
       data.reviews.forEach(r => {
         initialDisplay[r.id] = r.publicDisplay || false;
@@ -143,7 +144,12 @@ useEffect(() => {
   
   // Get unique values for filter dropdowns
   const properties = [...new Set(reviews.map(r => r.property))];
-  const categories = [...new Set(reviews.map(r => r.category).filter(Boolean))];
+  
+  // Extract unique category keys from all reviews' ratingsByCategory objects
+  const categories = [...new Set(
+    reviews.flatMap(r => Object.keys(r.ratingsByCategory || {}))
+  )];
+  
   const channels = [...new Set(reviews.map(r => r.channel).filter(Boolean))];
 
   /**
@@ -167,8 +173,9 @@ useEffect(() => {
         (filterRating === "medium" && r.ratingOverall >= 5 && r.ratingOverall < 8) ||
         (filterRating === "low" && r.ratingOverall < 5);
 
-      // Category filter
-      const categoryMatch = !filterCategory || r.category === filterCategory;
+      // Category filter - check if the review has ratings for this category
+      const categoryMatch = !filterCategory || 
+        (r.ratingsByCategory && r.ratingsByCategory[filterCategory] !== undefined);
 
       // Channel filter
       const channelMatch = !filterChannel || r.channel === filterChannel;
@@ -249,7 +256,7 @@ useEffect(() => {
       // Track potential issues (low ratings)
       if (r.ratingOverall < 7) {
         stats.issues.push({
-          category: r.category,
+          category: r.ratingsByCategory ? Object.keys(r.ratingsByCategory)[0] : 'General',
           text: r.text.substring(0, 50) + "...",
           rating: r.ratingOverall
         });
@@ -449,7 +456,7 @@ useEffect(() => {
               </select>
             </div>
 
-            {/* Category Filter */}
+            {/* Category Filter - Fixed to use ratingsByCategory keys */}
             <div className={styles.filterGroup}>
               <label className={styles.filterLabel}>📋 Category</label>
               <select
@@ -459,7 +466,9 @@ useEffect(() => {
               >
                 <option value="">All Categories</option>
                 {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
+                  <option key={cat} value={cat}>
+                    {cat.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}
+                  </option>
                 ))}
               </select>
             </div>
@@ -533,7 +542,7 @@ useEffect(() => {
         <div className={styles.container}>
           {/* Header */}
           <div className={styles.header}>
-            <h1 className={styles.headerTitle}>🏆 Manager Dashboard</h1>
+            <h1 className={styles.headerTitle}>reviews Dashboard</h1>
             <p className={styles.headerSubtitle}>Monitor property performance and manage review visibility</p>
             {hasActiveFilters && (
               <div className={styles.headerBadge}>
@@ -889,9 +898,9 @@ useEffect(() => {
 
                       <div className={styles.reviewCardFooter}>
                         <div className={styles.reviewTags}>
-                          {review.category && (
+                          {review.ratingsByCategory && Object.keys(review.ratingsByCategory).length > 0 && (
                             <span className={`${styles.tag} ${styles.tagCategory}`}>
-                              {review.category}
+                              {Object.keys(review.ratingsByCategory)[0].replace(/_/g, " ")}
                             </span>
                           )}
                           {review.channel && (
